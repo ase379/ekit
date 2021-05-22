@@ -43,14 +43,13 @@ public class EditDistance {
     }
 
     public static void main(String[] args) throws Exception {
-        EditDistance ed = new EditDistance();
         BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
         String input = "";
         String input2 = "";
         while (input != null) {
             input = stdin.readLine();
             input2 = stdin.readLine();
-            System.out.println(ed.getDistance(input, input2));
+            System.out.println(EditDistance.getDistance(input, input2));
         }
     }
 }

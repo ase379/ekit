@@ -16,12 +16,12 @@ public class JSpellDialog extends JDialog implements ActionListener, WindowListe
   private SpellCheckEvent event = null;
 
   public JSpellDialog(Frame owner, String title, boolean modal) {
-    super(owner, title, modal);
+    super(owner, title, modal, owner.getGraphicsConfiguration());
     initialiseDialog();
   }
 
   public JSpellDialog(Dialog owner, String title, boolean modal) {
-    super(owner, title, modal);
+    super(owner, title, modal, owner.getGraphicsConfiguration());
     initialiseDialog();
   }
 

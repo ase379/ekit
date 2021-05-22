@@ -47,7 +47,7 @@ public class SearchDialog extends JDialog
 
 	public SearchDialog(Frame parent, String title, boolean bModal, boolean bIsReplace, boolean bCaseSetting, boolean bTopSetting)
 	{
-		super(parent, title, bModal);
+		super(parent, title, bModal, parent.getGraphicsConfiguration());
 		final boolean isReplaceDialog    = bIsReplace;
 		final JTextField jtxfFindTerm    = new JTextField(3);
 		final JTextField jtxfReplaceTerm = new JTextField(3);

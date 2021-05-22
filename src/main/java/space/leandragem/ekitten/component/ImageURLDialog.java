@@ -50,7 +50,7 @@ public class ImageURLDialog extends JDialog
 
 	public ImageURLDialog(Frame parent, String title, boolean bModal)
 	{
-		super(parent, title, bModal);
+		super(parent, title, bModal, parent.getGraphicsConfiguration());
 
 		final Object[] buttonLabels = { Translatrix.getTranslationString("DialogAccept"), Translatrix.getTranslationString("DialogCancel") };
 		Object[] panelContents = {

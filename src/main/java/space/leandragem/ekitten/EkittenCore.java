@@ -64,7 +64,7 @@ import javax.swing.undo.CannotUndoException;
 
 import space.leandragem.ekitten.action.*;
 import space.leandragem.ekitten.component.*;
-import space.leandragem.ekitten.factory.DialogFactory;
+import space.leandragem.ekitten.dialogs.DialogFactory;
 import space.leandragem.util.Base64Codec;
 import space.leandragem.util.Load;
 import space.leandragem.util.Translatrix;
@@ -1121,7 +1121,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 			String command = ae.getActionCommand();
 			if(command.equals(CMD_DOC_NEW) || command.equals(CMD_DOC_NEW_STYLED))
 			{
-				SimpleInfoDialog sidAsk = new SimpleInfoDialog(this.getFrame(), "", true, Translatrix.getTranslationString("AskNewDocument"), SimpleInfoDialog.QUESTION);
+				SimpleInfoDialog sidAsk = DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), "", true, Translatrix.getTranslationString("AskNewDocument"), SimpleInfoDialog.QUESTION);
 				String decision = sidAsk.getDecisionValue();
 				if(decision.equals(Translatrix.getTranslationString("DialogAccept")))
 				{
@@ -1467,7 +1467,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 			}
 			else if(command.equals(CMD_HELP_ABOUT))
 			{
-				new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("About"), true, Translatrix.getTranslationString("AboutMessage"), SimpleInfoDialog.INFO);
+				DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("About"), true, Translatrix.getTranslationString("AboutMessage"), SimpleInfoDialog.INFO);
 			}
 			else if(command.equals(CMD_ENTER_PARAGRAPH))
 			{
@@ -1485,27 +1485,27 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 		catch(IOException ioe)
 		{
 			logException("IOException in actionPerformed method", ioe);
-			new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorIOException"), SimpleInfoDialog.ERROR);
+			DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorIOException"), SimpleInfoDialog.ERROR);
 		}
 		catch(BadLocationException ble)
 		{
 			logException("BadLocationException in actionPerformed method", ble);
-			new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorBadLocationException"), SimpleInfoDialog.ERROR);
+			DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorBadLocationException"), SimpleInfoDialog.ERROR);
 		}
 		catch(NumberFormatException nfe)
 		{
 			logException("NumberFormatException in actionPerformed method", nfe);
-			new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorNumberFormatException"), SimpleInfoDialog.ERROR);
+			DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorNumberFormatException"), SimpleInfoDialog.ERROR);
 		}
 		catch(ClassNotFoundException cnfe)
 		{
 			logException("ClassNotFound Exception in actionPerformed method", cnfe);
-			new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorClassNotFoundException "), SimpleInfoDialog.ERROR);
+			DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorClassNotFoundException "), SimpleInfoDialog.ERROR);
 		}
 		catch(RuntimeException re)
 		{
 			logException("RuntimeException in actionPerformed method", re);
-			new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorRuntimeException"), SimpleInfoDialog.ERROR);
+			DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorRuntimeException"), SimpleInfoDialog.ERROR);
 		}
 	}
 
@@ -1583,12 +1583,12 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 			catch(BadLocationException ble)
 			{
 				logException("BadLocationException in keyTyped method", ble);
-				new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorBadLocationException"), SimpleInfoDialog.ERROR);
+				DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorBadLocationException"), SimpleInfoDialog.ERROR);
 			}
 			catch(IOException ioe)
 			{
 				logException("IOException in keyTyped method", ioe);
-				new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorIOException"), SimpleInfoDialog.ERROR);
+				DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorIOException"), SimpleInfoDialog.ERROR);
 			}
 		}
 		else if(ke.getKeyChar() == KeyEvent.VK_ENTER)
@@ -1671,12 +1671,12 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 			catch(BadLocationException ble)
 			{
 				logException("BadLocationException in keyTyped method", ble);
-				new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorBadLocationException"), SimpleInfoDialog.ERROR);
+				DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorBadLocationException"), SimpleInfoDialog.ERROR);
 			}
 			catch(IOException ioe)
 			{
 				logException("IOException in keyTyped method", ioe);
-				new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorIOException"), SimpleInfoDialog.ERROR);
+				DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorIOException"), SimpleInfoDialog.ERROR);
 			}
 		}
 	}
@@ -1902,7 +1902,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 		}
 		else
 		{
-			new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Table"), true, Translatrix.getTranslationString("CursorNotInTable"));
+			DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Table"), true, Translatrix.getTranslationString("CursorNotInTable"),SimpleInfoDialog.WARNING);
 		}
 	}
 
@@ -1960,7 +1960,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 		}
 		else
 		{
-			new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Cell"), true, Translatrix.getTranslationString("CursorNotInCell"));
+			DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Cell"), true, Translatrix.getTranslationString("CursorNotInCell"),SimpleInfoDialog.WARNING);
 		}
 	}
 
@@ -2376,7 +2376,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 		}
 		if(searchFindTerm == null || (bIsFindReplace && searchReplaceTerm == null))
 		{
-			SearchDialog sdSearchInput = new SearchDialog(this.getFrame(), Translatrix.getTranslationString("SearchDialogTitle"), true, bIsFindReplace, bCaseSensitive, bStartAtTop);
+			SearchDialog sdSearchInput = DialogFactory.getInstance().newSearchDialog(this.getFrame(), Translatrix.getTranslationString("SearchDialogTitle"), true, bIsFindReplace, bCaseSensitive, bStartAtTop);
 			searchFindTerm    = sdSearchInput.getFindTerm();
 			searchReplaceTerm = sdSearchInput.getReplaceTerm();
 			bCaseSensitive    = sdSearchInput.getCaseSensitive();
@@ -2399,7 +2399,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 				}
 				else
 				{
-					new SimpleInfoDialog(this.getFrame(), "", true, Translatrix.getTranslationString("ErrorNoOccurencesFound") + ":\n" + searchFindTerm, SimpleInfoDialog.WARNING);
+					DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), "", true, Translatrix.getTranslationString("ErrorNoOccurencesFound") + ":\n" + searchFindTerm, SimpleInfoDialog.WARNING);
 				}
 			}
 			else
@@ -2407,7 +2407,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 				int results = findText(searchFindTerm, searchReplaceTerm, bCaseSensitive, (bStartAtTop ? 0 : searchPane.getCaretPosition()));
 				if(results == -1)
 				{
-					new SimpleInfoDialog(this.getFrame(), "", true, Translatrix.getTranslationString("ErrorNoMatchFound") + ":\n" + searchFindTerm, SimpleInfoDialog.WARNING);
+					DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), "", true, Translatrix.getTranslationString("ErrorNoMatchFound") + ":\n" + searchFindTerm, SimpleInfoDialog.WARNING);
 				}
 			}
 			lastSearchFindTerm    = new String(searchFindTerm);
@@ -2473,7 +2473,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 		catch(BadLocationException ble)
 		{
 			logException("BadLocationException in actionPerformed method", ble);
-			new SimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorBadLocationException"), SimpleInfoDialog.ERROR);
+			DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorBadLocationException"), SimpleInfoDialog.ERROR);
 		}
 		return searchPlace;
 	}
@@ -2502,7 +2502,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 	public void insertURLImage()
 	throws IOException, BadLocationException, RuntimeException
 	{
-		ImageURLDialog imgUrlDialog = new ImageURLDialog(this.getFrame(), Translatrix.getTranslationString("ImageURLDialogTitle"), true);
+		ImageURLDialog imgUrlDialog = DialogFactory.getInstance().newImageURLDialog(this.getFrame(), Translatrix.getTranslationString("ImageURLDialogTitle"), true);
 		imgUrlDialog.pack();
 		imgUrlDialog.setVisible(true);
 		String whatImage = imgUrlDialog.getImageUrl();
@@ -2888,7 +2888,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 	  */
 	private void getImageFromChooser(String startDir, String[] exts, String desc)
 	{
-		ImageFileDialog imgFileDialog = new ImageFileDialog(this.getFrame(), startDir, exts, desc, "", Translatrix.getTranslationString("ImageDialogTitle"), true);
+		ImageFileDialog imgFileDialog = DialogFactory.getInstance().newImageFileDialog(this.getFrame(), startDir, exts, desc, "", Translatrix.getTranslationString("ImageDialogTitle"), true);
 		imgFileDialog.setVisible(true);
 		String decision = imgFileDialog.getDecisionValue();
 		if(decision.equals(Translatrix.getTranslationString("DialogAccept")))

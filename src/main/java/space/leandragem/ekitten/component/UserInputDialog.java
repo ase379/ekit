@@ -44,7 +44,7 @@ public class UserInputDialog extends JDialog
 
 	public UserInputDialog(Frame parent, String title, boolean bModal, String attribName, String defaultText)
 	{
-		super(parent, title, bModal);
+		super(parent, title, bModal, parent.getGraphicsConfiguration());
 		final JTextField jtxfInput = new JTextField(32);
 		jtxfInput.setText(defaultText);
 		Object[] panelContents = { attribName, jtxfInput };

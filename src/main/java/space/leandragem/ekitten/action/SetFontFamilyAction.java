@@ -25,7 +25,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.text.StyledEditorKit;
 
 import space.leandragem.ekitten.EkittenCore;
-import space.leandragem.ekitten.component.FontSelectorDialog;
+import space.leandragem.ekitten.dialogs.FontSelectorDialog;
+import space.leandragem.ekitten.dialogs.DialogFactory;
 import space.leandragem.util.Translatrix;
 
 /** Class for implementing custom Font Family formating actions
@@ -54,7 +55,7 @@ public class SetFontFamilyAction extends StyledEditorKit.FontFamilyAction
 		}
 		else
 		{
-			FontSelectorDialog fsdInput = new FontSelectorDialog(parentEkit.getFrame(), Translatrix.getTranslationString("FontDialogTitle"), true, "face", parentEkit.getTextPane().getSelectedText());
+			FontSelectorDialog fsdInput = DialogFactory.getInstance().newFontSelectorDialog(parentEkit.getFrame(), Translatrix.getTranslationString("FontDialogTitle"), true, "face", parentEkit.getTextPane().getSelectedText());
 			String newFace = new String(fsdInput.getFontName());
 			fsdInput.dispose();
 			if(newFace != null)

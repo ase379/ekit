@@ -63,7 +63,7 @@ public class ImageFileDialog extends JDialog implements ActionListener
 
 	public ImageFileDialog(Frame parent, String imgDir, String[] imgExts, String imgDesc, String imgSrc, String title, boolean bModal)
 	{
-		super(parent, title, bModal);
+		super(parent, title, bModal, parent.getGraphicsConfiguration());
 
 		this.imageDir  = imgDir;
 		this.imageExts = imgExts;

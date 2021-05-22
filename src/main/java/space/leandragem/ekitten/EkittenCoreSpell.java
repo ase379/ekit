@@ -23,6 +23,7 @@ import java.net.URL;
 import javax.swing.text.Document;
 import javax.swing.text.StyledDocument;
 
+import space.leandragem.ekitten.dialogs.DialogFactory;
 import space.leandragem.util.Translatrix;
 
 import com.swabunga.spell.engine.*;
@@ -83,7 +84,7 @@ public class EkittenCoreSpell extends EkittenCore implements SpellCheckListener
 		{
 			e.printStackTrace();
 		}
-		spellDialog = new JSpellDialog(this.getFrame(), Translatrix.getTranslationString("ToolSpellcheckDialog"), true);
+		spellDialog = DialogFactory.getInstance().newSpellDialog(this.getFrame(), Translatrix.getTranslationString("ToolSpellcheckDialog"), true);
 	}
 
 	/** Raw/Base64 Document & Style Sheet URL Constructor (Ideal for space.leandragem.ekitten.EkitApplet)

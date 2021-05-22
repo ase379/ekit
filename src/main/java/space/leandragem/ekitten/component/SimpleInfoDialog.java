@@ -47,7 +47,7 @@ public class SimpleInfoDialog extends JDialog
 
 	public SimpleInfoDialog(Frame parent, String title, boolean bModal, String message, int type)
 	{
-		super(parent, title, bModal);
+		super(parent, title, bModal, parent.getGraphicsConfiguration());
 		if(type == QUESTION)
 		{
 			buttonLabels = new Object[]{ Translatrix.getTranslationString("DialogAccept"), Translatrix.getTranslationString("DialogCancel") };
@@ -81,11 +81,6 @@ public class SimpleInfoDialog extends JDialog
 		if(centerY < 0) { centerY = 0; }
 		this.setLocation(centerX, centerY);
 		this.setVisible(true);
-	}
-
-	public SimpleInfoDialog(Frame parent, String title, boolean bModal, String message)
-	{
-		this(parent, title, bModal, message, WARNING);
 	}
 
 	public String getDecisionValue()

@@ -42,7 +42,7 @@ public class UserInputAnchorDialog extends JDialog implements ActionListener
 
 	public UserInputAnchorDialog(EkittenCore peKit, String title, boolean bModal, String defaultAnchor)
 	{		
-		super(peKit.getFrame(), title, bModal);
+		super(peKit.getFrame(), title, bModal, peKit.getGraphicsConfiguration());
 //		parentEkit = peKit;
 		jtxfInput.setText(defaultAnchor);
 		init();

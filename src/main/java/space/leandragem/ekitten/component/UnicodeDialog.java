@@ -367,7 +367,7 @@ public class UnicodeDialog extends JDialog implements ActionListener
 
 	public UnicodeDialog(EkittenCore parent, String title, boolean bModal, int index)
 	{
-		super(parent.getFrame(), title, bModal);
+		super(parent.getFrame(), title, bModal, parent.getGraphicsConfiguration());
 		parentEkit = parent;
 		init(index);
 	}

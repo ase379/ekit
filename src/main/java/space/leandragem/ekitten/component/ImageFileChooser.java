@@ -29,7 +29,7 @@ import javax.swing.JFileChooser;
 public class ImageFileChooser extends JFileChooser
 {
 	/** Constructor that takes a default directory to start in, specified as a File
-	  * @param File with the default path
+	  * @param fileCurrentDirectory with the default path
 	  */
 	public ImageFileChooser(File fileCurrentDirectory)
 	{
@@ -38,7 +38,7 @@ public class ImageFileChooser extends JFileChooser
    }
 
 	/** Constructor that takes a default directory to start in, specified as a String
-	  * @param String current directory path.
+	  * @param strCurrentPath current directory path.
 	  */
 	public ImageFileChooser(String strCurrentPath)
 	{

@@ -64,6 +64,7 @@ import javax.swing.undo.CannotUndoException;
 
 import space.leandragem.ekitten.action.*;
 import space.leandragem.ekitten.component.*;
+import space.leandragem.ekitten.factory.DialogFactory;
 import space.leandragem.util.Base64Codec;
 import space.leandragem.util.Load;
 import space.leandragem.util.Translatrix;
@@ -1797,7 +1798,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 		int cols = 0;
 		if(fieldNames != null && fieldNames.length > 0)
 		{
-			PropertiesDialog propertiesDialog = new PropertiesDialog(this.getFrame(), fieldNames, fieldTypes, fieldValues, Translatrix.getTranslationString("TableDialogTitle"), true);
+			PropertiesDialog propertiesDialog = DialogFactory.getInstance().newPropertiesDialog(this.getFrame(), fieldNames, fieldTypes, fieldValues, Translatrix.getTranslationString("TableDialogTitle"), true);
 			propertiesDialog.setVisible(true);
 			String decision = propertiesDialog.getDecisionValue();
 			if(decision.equals(Translatrix.getTranslationString("DialogCancel")))
@@ -1879,7 +1880,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 					}
 				}
 			}
-			PropertiesDialog propertiesDialog = new PropertiesDialog(this.getFrame(), fieldNames, fieldTypes, fieldValues, Translatrix.getTranslationString("TableEdit"), true);
+			PropertiesDialog propertiesDialog = DialogFactory.getInstance().newPropertiesDialog(this.getFrame(), fieldNames, fieldTypes, fieldValues, Translatrix.getTranslationString("TableEdit"), true);
 			propertiesDialog.setVisible(true);
 			if(!propertiesDialog.getDecisionValue().equals(Translatrix.getTranslationString("DialogCancel")))
 			{
@@ -1937,7 +1938,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 					}
 				}
 			}
-			PropertiesDialog propertiesDialog = new PropertiesDialog(this.getFrame(), fieldNames, fieldTypes, fieldValues, Translatrix.getTranslationString("TableCellEdit"), true);
+			PropertiesDialog propertiesDialog = DialogFactory.getInstance().newPropertiesDialog(this.getFrame(), fieldNames, fieldTypes, fieldValues, Translatrix.getTranslationString("TableCellEdit"), true);
 			propertiesDialog.setVisible(true);
 			if(!propertiesDialog.getDecisionValue().equals(Translatrix.getTranslationString("DialogCancel")))
 			{
@@ -2257,7 +2258,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 		}
 		if(fieldNames != null && fieldNames.length > 0)
 		{
-			PropertiesDialog propertiesDialog = new PropertiesDialog(this.getFrame(), fieldNames, fieldTypes, fieldValues, Translatrix.getTranslationString("FormDialogTitle"), true);
+			PropertiesDialog propertiesDialog = DialogFactory.getInstance().newPropertiesDialog(this.getFrame(), fieldNames, fieldTypes, fieldValues, Translatrix.getTranslationString("FormDialogTitle"), true);
 			propertiesDialog.setVisible(true);
 			String decision = propertiesDialog.getDecisionValue();
 			if(decision.equals(Translatrix.getTranslationString("DialogCancel")))

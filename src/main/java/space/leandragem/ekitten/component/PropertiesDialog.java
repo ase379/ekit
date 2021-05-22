@@ -44,7 +44,7 @@ public class PropertiesDialog extends JDialog
 
 	public PropertiesDialog(Frame parent, String[] fields, String[] types, String[] values, String title, boolean bModal)
 	{
-		super(parent, title, bModal);
+		super(parent, title, bModal, parent.getGraphicsConfiguration());
 		htInputFields = new Hashtable<String, JComponent>();
 		final Object[] buttonLabels = { Translatrix.getTranslationString("DialogAccept"), Translatrix.getTranslationString("DialogCancel") };
 		Object[] panelContents = new Object[(fields.length * 2)];

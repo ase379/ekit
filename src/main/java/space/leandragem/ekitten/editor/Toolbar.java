@@ -2,6 +2,7 @@ package space.leandragem.ekitten.editor;
 
 import space.leandragem.ekitten.EkittenCore;
 import space.leandragem.ekitten.component.JButtonNoFocus;
+import space.leandragem.ekitten.images.ImageFactory;
 import space.leandragem.util.Load;
 import space.leandragem.util.Translatrix;
 
@@ -69,7 +70,7 @@ public class Toolbar {
 
         JButtonNoFocus btn = null;
         for(Field f: getClass().getFields()){
-            btn = new JButtonNoFocus(Load.EkitIcon("Print"));
+            btn = new JButtonNoFocus(ImageFactory.getInstance().getImageIcon("Print"));
             btn.setToolTipText(Translatrix.getTranslationString("PrintDocument"));
             btn.setActionCommand(CMD_DOC_PRINT);
             btn.addActionListener(editor);

@@ -1,6 +1,7 @@
 package space.leandragem.ekitten.editor.toolbar;
 
 import space.leandragem.ekitten.component.JButtonNoFocus;
+import space.leandragem.ekitten.images.ImageFactory;
 import space.leandragem.util.Load;
 import space.leandragem.util.Translatrix;
 
@@ -39,7 +40,7 @@ public enum Button {
     {
         JButtonNoFocus btn = new JButtonNoFocus();
         btn.setActionCommand(action);
-        btn.setIcon(Load.EkitIcon(icon));
+        btn.setIcon(ImageFactory.getInstance().getImageIcon(icon));
         btn.setToolTipText(Translatrix.getTranslationString(translationString));
         btn.setText(null);
         return btn;

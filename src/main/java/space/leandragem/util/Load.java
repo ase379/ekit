@@ -11,23 +11,6 @@ import java.util.Base64;
 
 public class Load {
 
-    /** Convenience method for fetching icon images from jar file
-     */
-    public static ImageIcon EkitIcon(String iconName)
-    {
-        URL imageURL = Load.class.getResource("/space/leandragem/ekitten/icons/" + iconName + "HK.png");
-        if(imageURL != null)
-        {
-            return new ImageIcon(Toolkit.getDefaultToolkit().getImage(imageURL));
-        }
-        imageURL = Load.class.getResource("/space/leandragem/ekitten/icons/" + iconName + "HK.gif");
-        if(imageURL != null)
-        {
-            return new ImageIcon(Toolkit.getDefaultToolkit().getImage(imageURL));
-        }
-        return (ImageIcon) null;
-    }
-
     public static String FileInBase64(File file)
         throws IOException
     {

@@ -38,18 +38,18 @@ import space.leandragem.util.Translatrix;
   */
 public class SearchDialog extends JDialog
 {
-	private String inputFindTerm    = (String)null;
-	private String inputReplaceTerm = (String)null;
+	private String inputFindTerm    = null;
+	private String inputReplaceTerm = null;
 	private boolean bCaseSensitive  = false;
 	private boolean bStartAtTop     = false;
 	private boolean bReplaceAll     = false;
-	private JOptionPane jOptionPane;
+	final JTextField jtxfFindTerm    = new JTextField(3);
+	private final JOptionPane jOptionPane;
 
 	public SearchDialog(Frame parent, String title, boolean bModal, boolean bIsReplace, boolean bCaseSetting, boolean bTopSetting)
 	{
 		super(parent, title, bModal, parent.getGraphicsConfiguration());
 		final boolean isReplaceDialog    = bIsReplace;
-		final JTextField jtxfFindTerm    = new JTextField(3);
 		final JTextField jtxfReplaceTerm = new JTextField(3);
 		final JCheckBox  jchkCase        = new JCheckBox(Translatrix.getTranslationString("SearchCaseSensitive"), bCaseSetting);
 		final JCheckBox  jchkTop         = new JCheckBox(Translatrix.getTranslationString("SearchStartAtTop"), bTopSetting);
@@ -116,8 +116,8 @@ public class SearchDialog extends JDialog
 					}
 					else
 					{
-						inputFindTerm    = (String)null;
-						inputReplaceTerm = (String)null;
+						inputFindTerm    = null;
+						inputReplaceTerm = null;
 						bCaseSensitive   = false;
 						bStartAtTop      = false;
 						bReplaceAll      = false;
@@ -127,7 +127,10 @@ public class SearchDialog extends JDialog
 			}
 		});
 		this.pack();
-		this.setVisible(true);
+	}
+
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
 		jtxfFindTerm.requestFocus();
 	}
 

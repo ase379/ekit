@@ -286,7 +286,7 @@ public class HTMLUtilities
 				return eleSearch;
 			}
 			eleSearch = eleSearch.getParentElement();
-		} while(eleSearch.getName() != HTML.Tag.HTML.toString());
+		} while(!Objects.equals(eleSearch.getName(), HTML.Tag.HTML.toString()));
 		return null;
 	}
 
@@ -302,7 +302,7 @@ public class HTMLUtilities
 				return eleSearch;
 			}
 			eleSearch = eleSearch.getParentElement();
-		} while(eleSearch !=  null && eleSearch.getName() != HTML.Tag.HTML.toString());
+		} while(eleSearch !=  null && !Objects.equals(eleSearch.getName(), HTML.Tag.HTML.toString()));
 		return null;
 	}
 
@@ -347,7 +347,7 @@ public class HTMLUtilities
 			for(int countSource = 0; countSource < sourceKeys.length; countSource++)
 			{
 				hit = false;
-				if(sourceKeys[countSource] == "name" | sourceKeys[countSource] == "resolver")
+				if(sourceKeys[countSource].equals("name") | sourceKeys[countSource].equals("resolver"))
 				{
 					hit = true;
 				}
@@ -355,26 +355,26 @@ public class HTMLUtilities
 				{
 					for(int countRemove = 0; countRemove < removeKeys.length; countRemove++)
 					{
-						if(removeKeys[countRemove] != "NULL")
+						if(!removeKeys[countRemove].equals("NULL"))
 						{
-							if(sourceKeys[countSource].toString() == removeKeys[countRemove].toString())
+							if(sourceKeys[countSource].toString().equals(removeKeys[countRemove].toString()))
 							{
-								if(removeValues[countRemove] != "NULL")
+								if(!removeValues[countRemove].equals("NULL"))
 								{
-									if(sourceValues[countSource].toString() == removeValues[countRemove].toString())
+									if(sourceValues[countSource].toString().equals(removeValues[countRemove].toString()))
 									{
 										hit = true;
 									}
 								}
-								else if(removeValues[countRemove] == "NULL")
+								else if(removeValues[countRemove].equals("NULL"))
 								{
 									hit = true;
 								}
 							}
 						}
-						else if(removeKeys[countRemove] == "NULL")
+						else if(removeKeys[countRemove].equals("NULL"))
 						{
-							if(sourceValues[countSource].toString() == removeValues[countRemove].toString())
+							if(sourceValues[countSource].toString().equals(removeValues[countRemove].toString()))
 							{
 								hit = true;
 							}

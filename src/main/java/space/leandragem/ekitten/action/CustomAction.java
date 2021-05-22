@@ -85,7 +85,7 @@ public class CustomAction extends StyledEditorKit.StyledTextAction
 				// which (if found) is passed to the URL HREF request dialog.
 				if(htmlTag.toString().equals(HTML.Tag.A.toString()))
 				{
-					SimpleAttributeSet sasText = null;
+					SimpleAttributeSet sasText;
 					for(int i = caretOffset; i < caretOffset + internalTextLength; i++)
 					{
 						parentTextPane.select(i, i + 1);

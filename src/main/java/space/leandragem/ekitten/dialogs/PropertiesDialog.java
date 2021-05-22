@@ -67,7 +67,7 @@ public class PropertiesDialog extends JDialog
 				fieldComponent = new JCheckBox();
 				if(values[iter] != null)
 				{
-					((JCheckBox)(fieldComponent)).setSelected(values[iter] == "true");
+					((JCheckBox)(fieldComponent)).setSelected(values[iter].equals("true"));
 				}
 			}
 			else if(fieldType.equals("combo"))

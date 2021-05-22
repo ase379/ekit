@@ -66,7 +66,7 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 			{
 				int pos = parentEkit.getCaretPosition();
 				parentEkit.setCaretPosition(pos);
-				if(ae.getActionCommand() != "newListPoint")
+				if(!ae.getActionCommand().equals("newListPoint"))
 				{
 					if(htmlUtilities.checkParentsTag(HTML.Tag.OL) || htmlUtilities.checkParentsTag(HTML.Tag.UL))
 					{

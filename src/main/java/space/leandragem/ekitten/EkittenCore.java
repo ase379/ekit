@@ -1683,7 +1683,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 				Object entryValue = attribs.get(entryKey);
 				if(entryValue != null && entryValue != "")
 				{
-					compositeElement.append(" " + entryKey + "=" + '"' + entryValue + '"');
+					compositeElement.append(" ").append(entryKey).append("=").append('"').append(entryValue).append('"');
 				}
 			}
 		}

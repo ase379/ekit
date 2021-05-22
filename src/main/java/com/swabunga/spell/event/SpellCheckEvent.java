@@ -44,14 +44,14 @@ public interface SpellCheckEvent {
   public String getReplaceWord();
 
   /** Set the action to replace the currently misspelt word with the new word
-   *  @param String newWord The word to replace the currently misspelt word
-   *  @param boolean replaceAll If set to true, the SpellChecker will replace all
+   *  @param newWord The word to replace the currently misspelt word
+   *  @param replaceAll If set to true, the SpellChecker will replace all
    *  further occurances of the misspelt word without firing a SpellCheckEvent.
    */
   public void replaceWord(String newWord, boolean replaceAll);
 
   /** Set the action it ignore the currently misspelt word.
-   *  @param boolean ignoreAll If set to true, the SpellChecker will replace all
+   *  @param ignoreAll If set to true, the SpellChecker will replace all
    *  further occurances of the misspelt word without firing a SpellCheckEvent.
    */
   public void ignoreWord(boolean ignoreAll);

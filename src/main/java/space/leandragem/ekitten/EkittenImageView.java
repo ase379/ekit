@@ -909,7 +909,7 @@ public class EkittenImageView extends View {
         double proportion = 0.0;
         final int specifiedWidth = getIntAttr(HTML.Attribute.WIDTH, -1);
         final int specifiedHeight = getIntAttr(HTML.Attribute.HEIGHT, -1);
-        /**
+        /*
          * If either of the attributes are not specified, then calculate the
          * proportion for the specified dimension wrt actual value, and then
          * apply the same proportion to the unspecified dimension as well,
@@ -996,7 +996,7 @@ public class EkittenImageView extends View {
                     changed |= 2;
                 }
 
-                /**
+                /*
                  * If the image properties (height and width) have been loaded,
                  * then figure out if scaling is necessary based on the
                  * specified HTML attributes.

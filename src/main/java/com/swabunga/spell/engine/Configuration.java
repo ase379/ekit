@@ -32,14 +32,14 @@ public abstract class Configuration {
 	public static final Configuration getConfiguration() {
 		Configuration result;
 		// changed, breaks applet security otherwise (Howard Kistler)
-		String config = (String)null;
+		String config = null;
 		try
 		{
 			config = System.getProperty("jazzy.config");
 		}
 		catch(Exception e)
 		{
-			config = (String)null;
+			config = null;
 			e.printStackTrace(System.err);
 		}
 		// End Mod

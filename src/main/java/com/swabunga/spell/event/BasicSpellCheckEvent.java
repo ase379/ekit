@@ -22,9 +22,9 @@ class BasicSpellCheckEvent implements SpellCheckEvent {
 
 
   /**Consructs the SpellCheckEvent
-   * @param String invalidWord The word that is misspelt
-   * @param List suggestions A list of Word objects that are suggested to replace the currently mispelt word
-   * @param WordTokenizer tokenizer The reference to the tokenizer that caused this
+   * @param invalidWord The word that is misspelled
+   * @param suggestions A list of Word objects that are suggested to replace the currently mispelt word
+   * @param tokenizer The reference to the tokenizer that caused this
    * event to fire.
    */
   public BasicSpellCheckEvent(String invalidWord, List suggestions, WordTokenizer tokenizer) {
@@ -63,8 +63,8 @@ class BasicSpellCheckEvent implements SpellCheckEvent {
   }
 
   /** Set the action to replace the currently misspelt word with the new word
-   *  @param String newWord The word to replace the currently misspelt word
-   *  @param boolean replaceAll If set to true, the SpellChecker will replace all
+   *  @param newWord The word to replace the currently misspelt word
+   *  @param replaceAll If set to true, the SpellChecker will replace all
    *  further occurances of the misspelt word without firing a SpellCheckEvent.
    */
   public void replaceWord(String newWord, boolean replaceAll) {
@@ -77,7 +77,7 @@ class BasicSpellCheckEvent implements SpellCheckEvent {
   }
 
   /** Set the action it ignore the currently misspelt word.
-   *  @param boolean ignoreAll If set to true, the SpellChecker will replace all
+   *  @param ignoreAll If set to true, the SpellChecker will replace all
    *  further occurances of the misspelt word without firing a SpellCheckEvent.
    */
   public void ignoreWord(boolean ignoreAll) {

@@ -92,5 +92,12 @@ public class DialogFactory {
         return dlg;
     }
 
+    public UnicodeDialog newUnicodeDialog(EkittenCore parent, String title, boolean bModal, int indexr) {
+        UnicodeDialog dlg = new UnicodeDialog(parent,title,bModal,indexr);
+        centerWindow(dlg);
+        return dlg;
+    }
+
+
 
 }

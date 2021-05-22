@@ -75,11 +75,7 @@ public class SimpleInfoDialog extends JDialog
 		});
 
 		this.pack();
-		int centerX = (int)(((parent.getSize().getWidth()  / 2) + parent.getLocation().getX()) - (this.getSize().getWidth()  / 2));
-		int centerY = (int)(((parent.getSize().getHeight() / 2) + parent.getLocation().getY()) - (this.getSize().getHeight() / 2));
-		if(centerX < 0) { centerX = 0; }
-		if(centerY < 0) { centerY = 0; }
-		this.setLocation(centerX, centerY);
+		DialogFactory.centerWindow(this);
 		this.setVisible(true);
 	}
 

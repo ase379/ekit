@@ -2210,7 +2210,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 	private void insertUnicode(int index)
 	throws IOException, BadLocationException, RuntimeException
 	{
-		new UnicodeDialog(this, Translatrix.getTranslationString("UnicodeDialogTitle"), false, index);
+		DialogFactory.getInstance().newUnicodeDialog(this, Translatrix.getTranslationString("UnicodeDialogTitle"), false, index);
 	}
 
 	/** Method for inserting Unicode characters via the UnicodeDialog class

@@ -365,7 +365,7 @@ public class UnicodeDialog extends JDialog implements ActionListener
 	private JComboBox jcmbBlockSelector;
 	private JComboBox jcmbPageSelector;
 
-	public UnicodeDialog(EkittenCore parent, String title, boolean bModal, int index)
+	UnicodeDialog(EkittenCore parent, String title, boolean bModal, int index)
 	{
 		super(parent.getFrame(), title, bModal, parent.getGraphicsConfiguration());
 		parentEkit = parent;

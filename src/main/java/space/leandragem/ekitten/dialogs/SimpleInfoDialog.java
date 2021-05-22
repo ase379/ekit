@@ -75,7 +75,7 @@ public class SimpleInfoDialog extends JDialog
 		});
 
 		this.pack();
-		DialogFactory.centerWindow(this);
+		DialogFactory.getInstance().centerWindow(this);
 		this.setVisible(true);
 	}
 

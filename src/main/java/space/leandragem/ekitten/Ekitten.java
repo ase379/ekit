@@ -128,7 +128,7 @@ public class Ekitten extends JFrame
 		this.updateTitle();
 		this.pack();
 		this.setVisible(true);
-		DialogFactory.centerWindow(this);
+		DialogFactory.getInstance().centerWindow(this);
 	}
 
 	public Ekitten()

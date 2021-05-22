@@ -25,7 +25,7 @@ public class DialogFactory {
         return instance;
     };
 
-    protected static Point getTopLeftWindowPointForCurrentScreen(Window dialogOrFrame) {
+    protected Point getTopLeftWindowPointForCurrentScreen(Window dialogOrFrame) {
         Dimension windowSize = dialogOrFrame.getSize();
         var gc = dialogOrFrame.getGraphicsConfiguration();
         var gcBounds = gc.getBounds();
@@ -34,7 +34,7 @@ public class DialogFactory {
         return new Point(dx,dy);
     }
 
-    public static void centerWindow(final Window window) {
+    public void centerWindow(final Window window) {
         Rectangle dim = window.getGraphicsConfiguration().getBounds();
         var point = getTopLeftWindowPointForCurrentScreen(window);
         window.setLocation(point.x , point.y);

@@ -577,7 +577,7 @@ public class RelativeImageView extends View implements ImageObserver, MouseListe
 	// it will pick up the new height/width, if necessary.
 
 	private static boolean sIsInc = true;
-	private static int sIncRate = 100;
+	private static final int sIncRate = 100;
 
 	public boolean imageUpdate(Image img, int flags, int x, int y, int width, int height)
 	{

@@ -88,13 +88,13 @@ import static space.leandragem.ekitten.editor.Command.*;
 public class EkittenCore extends JPanel implements ActionListener, KeyListener, FocusListener, DocumentListener, WindowListener
 {
 	/* Components */
-	private JSplitPane jspltDisplay;
-	private JTextPane jtpMain;
-	private ExtendedHTMLEditorKit htmlKit;
+	private final JSplitPane jspltDisplay;
+	private final JTextPane jtpMain;
+	private final ExtendedHTMLEditorKit htmlKit;
 	private ExtendedHTMLDocument htmlDoc;
 	private StyleSheet styleSheet;
-	private JTextArea jtpSource;
-	private JScrollPane jspSource;
+	private final JTextArea jtpSource;
+	private final JScrollPane jspSource;
 	private JToolBar jToolBar;
 	private JToolBar jToolBarMain;
 	private JToolBar jToolBarFormat;
@@ -124,8 +124,8 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 	private JButtonNoFocus jbtnAlignRight;
 	private JButtonNoFocus jbtnAlignJustified;
 	private JButtonNoFocus jbtnFind;
-	private JButtonNoFocus jbtnUnicode;
-	private JButtonNoFocus jbtnUnicodeMath;
+	private final JButton jbtnUnicode;
+	private final JButton jbtnUnicodeMath;
 	private JButtonNoFocus jbtnAnchor;
 	private JButtonNoFocus jbtnInsertTable;
 	private JButtonNoFocus jbtnEditTable;
@@ -277,23 +277,6 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 		this.appName = appName;
 
 		frameHandler = new Frame();
-
-		// Determine if system clipboard is available (SecurityManager version)
-/*
-		SecurityManager secManager = System.getSecurityManager();
-		if(secManager != null)
-		{
-			try
-			{
-				secManager.checkSystemClipboardAccess();
-				sysClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-			}
-			catch(SecurityException se)
-			{
-				sysClipboard = null;
-			}
-		}
-*/
 
 		// Obtain system clipboard if available
 		try
@@ -1113,6 +1096,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 	{
 		this(false);
 	}
+
 
 	/* ActionListener method */
 	public void actionPerformed(ActionEvent ae)
@@ -2378,6 +2362,7 @@ public class EkittenCore extends JPanel implements ActionListener, KeyListener, 
 		if(searchFindTerm == null || (bIsFindReplace && searchReplaceTerm == null))
 		{
 			SearchDialog sdSearchInput = DialogFactory.getInstance().newSearchDialog(this.getFrame(), Translatrix.getTranslationString("SearchDialogTitle"), true, bIsFindReplace, bCaseSensitive, bStartAtTop);
+			sdSearchInput.setVisible(true);
 			searchFindTerm    = sdSearchInput.getFindTerm();
 			searchReplaceTerm = sdSearchInput.getReplaceTerm();
 			bCaseSensitive    = sdSearchInput.getCaseSensitive();

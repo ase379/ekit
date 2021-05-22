@@ -61,12 +61,8 @@ public class MutableFilter extends FileFilter
 					return true;
 				}
 			}
-			return false;
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 
 	public String getDescription()

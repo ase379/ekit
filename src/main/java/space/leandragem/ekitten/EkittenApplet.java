@@ -59,7 +59,7 @@ public class EkittenApplet extends JApplet
 		String sRawDocument = this.getParameter("DOCUMENT");
 		String sStyleSheetRef = this.getParameter("STYLESHEET");
 		boolean base64 = ((this.getParameter("BASE64") != null) && this.getParameter("BASE64").equalsIgnoreCase("true"));
-		URL urlCSS = (URL)null;
+		URL urlCSS = null;
 		try
 		{
 			if(sStyleSheetRef != null && sStyleSheetRef.length() > 0)
@@ -100,7 +100,7 @@ public class EkittenApplet extends JApplet
 		}
 
 		/* Add menus, based on whether or not they are requested (all are shown by default) */
-		Vector vcMenus = new Vector();
+		Vector<String> vcMenus = new Vector<>();
 		if(this.getParameter("MENU_EDIT")   != null) { if(this.getParameter("MENU_EDIT").equalsIgnoreCase("true"))   { vcMenus.add(EkittenCore.KEY_MENU_EDIT); } }   else { vcMenus.add(EkittenCore.KEY_MENU_EDIT); }
 		if(this.getParameter("MENU_VIEW")   != null) { if(this.getParameter("MENU_VIEW").equalsIgnoreCase("true"))   { vcMenus.add(EkittenCore.KEY_MENU_VIEW); } }   else { vcMenus.add(EkittenCore.KEY_MENU_VIEW); }
 		if(this.getParameter("MENU_FONT")   != null) { if(this.getParameter("MENU_FONT").equalsIgnoreCase("true"))   { vcMenus.add(EkittenCore.KEY_MENU_FONT); } }   else { vcMenus.add(EkittenCore.KEY_MENU_FONT); }
@@ -157,9 +157,9 @@ public class EkittenApplet extends JApplet
 	}
 
 	/* Applet methods */
-	public void start()   { ; }
-	public void stop()    { ; }
-	public void destroy() { ; }
+	public void start()   {  }
+	public void stop()    {  }
+	public void destroy() {  }
 
 	/** Method for passing back the document text to the applet's container.
 	  * This is the entire document, including the top-level HTML tags.

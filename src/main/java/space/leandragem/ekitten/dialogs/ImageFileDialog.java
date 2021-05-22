@@ -19,7 +19,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-package space.leandragem.ekitten.component;
+package space.leandragem.ekitten.dialogs;
 
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -35,6 +35,9 @@ import java.util.Optional;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import space.leandragem.ekitten.component.ImageFileChooser;
+import space.leandragem.ekitten.component.JButtonNoFocus;
+import space.leandragem.ekitten.component.MutableFilter;
 import space.leandragem.util.Translatrix;
 
 /** Class for providing a dialog that lets the user load a local image and specify its attributes

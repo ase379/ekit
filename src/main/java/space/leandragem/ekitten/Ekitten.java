@@ -19,6 +19,8 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+import space.leandragem.ekitten.dialogs.DialogFactory;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -126,6 +128,7 @@ public class Ekitten extends JFrame
 		this.updateTitle();
 		this.pack();
 		this.setVisible(true);
+		DialogFactory.centerWindow(this);
 	}
 
 	public Ekitten()

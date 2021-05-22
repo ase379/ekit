@@ -1,8 +1,8 @@
 /*
 GNU Lesser General Public License
 
-UserInputDialog
-Copyright (C) 2000 Howard Kistler
+ImageURLDialog
+Copyright (C) 2010 Howard Kistler (new version supercedes previous class)
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -19,11 +19,9 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-package space.leandragem.ekitten.component;
+package space.leandragem.ekitten.dialogs;
 
 import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
@@ -34,23 +32,35 @@ import javax.swing.JTextField;
 
 import space.leandragem.util.Translatrix;
 
-/** Class for providing a dialog that lets the user specify values for tag attributes
+/** Class for providing a dialog that lets the user specify a remote image URL and its attributes
   */
-public class UserInputDialog extends JDialog
+public class ImageURLDialog extends JDialog
 {
+	private String imageUrl    = new String();
+	private String imageAlt    = new String();
+	private String imageWidth  = new String();
+	private String imageHeight = new String();
 
-	private String inputText = new String();
 	private JOptionPane jOptionPane;
 
-	public UserInputDialog(Frame parent, String title, boolean bModal, String attribName, String defaultText)
+	private final JTextField jtxtUrl    = new JTextField(3);
+	private final JTextField jtxfAlt    = new JTextField(3);
+	private final JTextField jtxfWidth  = new JTextField(3);
+	private final JTextField jtxfHeight = new JTextField(3);
+
+	public ImageURLDialog(Frame parent, String title, boolean bModal)
 	{
 		super(parent, title, bModal, parent.getGraphicsConfiguration());
-		final JTextField jtxfInput = new JTextField(32);
-		jtxfInput.setText(defaultText);
-		Object[] panelContents = { attribName, jtxfInput };
-		final Object[] buttonLabels = { Translatrix.getTranslationString("DialogAccept"), Translatrix.getTranslationString("DialogCancel") };
 
+		final Object[] buttonLabels = { Translatrix.getTranslationString("DialogAccept"), Translatrix.getTranslationString("DialogCancel") };
+		Object[] panelContents = {
+			Translatrix.getTranslationString("ImageSrc"),    jtxtUrl,
+			Translatrix.getTranslationString("ImageAlt"),    jtxfAlt,
+			Translatrix.getTranslationString("ImageWidth"),  jtxfWidth,
+			Translatrix.getTranslationString("ImageHeight"), jtxfHeight
+		};
 		jOptionPane = new JOptionPane(panelContents, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION, null, buttonLabels, buttonLabels[0]);
+
 		setContentPane(jOptionPane);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
@@ -58,13 +68,6 @@ public class UserInputDialog extends JDialog
 			public void windowClosing(WindowEvent we)
 			{
 				jOptionPane.setValue(new Integer(JOptionPane.CLOSED_OPTION));
-			}
-		});
-
-		jtxfInput.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
-				jOptionPane.setValue(buttonLabels[0]);
 			}
 		});
 
@@ -81,33 +84,39 @@ public class UserInputDialog extends JDialog
 					{
 						return;
 					}
-					jOptionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
 					if(value.equals(buttonLabels[0]))
 					{
-						inputText = jtxfInput.getText();
+						imageUrl    = jtxtUrl.getText();
+						imageAlt    = jtxfAlt.getText();
+						imageWidth  = jtxfWidth.getText();
+						imageHeight = jtxfHeight.getText();
+						setVisible(false);
+					}
+					else if(value.equals(buttonLabels[1]))
+					{
+						imageUrl    = "";
+						imageAlt    = "";
+						imageWidth  = "";
+						imageHeight = "";
 						setVisible(false);
 					}
 					else
 					{
-						inputText = null;
-						setVisible(false);
+						jOptionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
 					}
 				}
 			}
 		});
 		this.pack();
-		this.setVisible(true);
-		jtxfInput.requestFocus();
 	}
 
-	public UserInputDialog(Frame parent, String title, boolean bModal, String attribName)
-	{
-		this(parent, title, bModal, attribName, "");
-	}
+	public String getImageUrl()    { return imageUrl; }
+	public String getImageAlt()    { return imageAlt; }
+	public String getImageWidth()  { return imageWidth; }
+	public String getImageHeight() { return imageHeight; }
 
-	public String getInputText()
+	public String getDecisionValue()
 	{
-		return inputText;
+		return jOptionPane.getValue().toString();
 	}
 }
-

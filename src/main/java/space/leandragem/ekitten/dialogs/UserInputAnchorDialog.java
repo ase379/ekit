@@ -19,7 +19,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-package space.leandragem.ekitten.component;
+package space.leandragem.ekitten.dialogs;
 
 import space.leandragem.ekitten.EkittenCore;
 import java.awt.Container;
@@ -40,7 +40,7 @@ public class UserInputAnchorDialog extends JDialog implements ActionListener
 	private String inputText = null;
 	private final JTextField jtxfInput = new JTextField(32);
 
-	public UserInputAnchorDialog(EkittenCore peKit, String title, boolean bModal, String defaultAnchor)
+	UserInputAnchorDialog(EkittenCore peKit, String title, boolean bModal, String defaultAnchor)
 	{		
 		super(peKit.getFrame(), title, bModal, peKit.getGraphicsConfiguration());
 //		parentEkit = peKit;

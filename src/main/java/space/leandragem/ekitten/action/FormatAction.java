@@ -28,8 +28,9 @@ import javax.swing.text.StyledEditorKit;
 import javax.swing.text.html.HTML;
 
 import space.leandragem.ekitten.EkittenCore;
-import space.leandragem.ekitten.component.*;
 
+import space.leandragem.ekitten.dialogs.DialogFactory;
+import space.leandragem.ekitten.dialogs.SimpleInfoDialog;
 import space.leandragem.util.Translatrix;
 
 /** Class for implementing HTML format actions
@@ -58,7 +59,7 @@ public class FormatAction extends StyledEditorKit.StyledTextAction
 		}
 		if(selText == null || textLength < 1)
 		{
-			SimpleInfoDialog sidWarn = new SimpleInfoDialog(parentEkit.getFrame(), "", true, Translatrix.getTranslationString("ErrorNoTextSelected"), SimpleInfoDialog.ERROR);
+			SimpleInfoDialog sidWarn = DialogFactory.getInstance().newSimpleInfoDialog(parentEkit.getFrame(), "", true, Translatrix.getTranslationString("ErrorNoTextSelected"), SimpleInfoDialog.ERROR);
 		}
 		else
 		{

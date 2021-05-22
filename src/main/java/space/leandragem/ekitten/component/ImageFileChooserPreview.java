@@ -43,7 +43,7 @@ class ImageFileChooserPreview extends JComponent implements PropertyChangeListen
 
 	/** This class requires a file chooser to register with so this class will
 	  * be notified when a new file is selected in the browser.
-	  * @param JFileChooser that this preview window is used in.
+	  * @param parent that this preview window is used in.
 	  */
 	public ImageFileChooserPreview(JFileChooser parent)
 	{
@@ -98,7 +98,7 @@ class ImageFileChooserPreview extends JComponent implements PropertyChangeListen
 	}
 
 	/** Paints the icon of the current image, if one's present..
-	  * @param Graphics object to use when painting the space.leandragem.ekitten.component.
+	  * @param g object to use when painting the space.leandragem.ekitten.component.
 	  */
 	public void paintComponent(Graphics g)
 	{

@@ -33,8 +33,9 @@ import javax.swing.text.StyledEditorKit;
 import javax.swing.text.html.HTML;
 
 import space.leandragem.ekitten.EkittenCore;
-import space.leandragem.ekitten.component.SimpleInfoDialog;
-import space.leandragem.ekitten.component.UserInputAnchorDialog;
+import space.leandragem.ekitten.dialogs.DialogFactory;
+import space.leandragem.ekitten.dialogs.SimpleInfoDialog;
+import space.leandragem.ekitten.dialogs.UserInputAnchorDialog;
 
 import space.leandragem.util.Translatrix;
 
@@ -73,7 +74,7 @@ public class CustomAction extends StyledEditorKit.StyledTextAction
 			}
 			if(selText == null || textLength < 1)
 			{
-				SimpleInfoDialog sidWarn = new SimpleInfoDialog(parentEkit.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorNoTextSelected"), SimpleInfoDialog.ERROR);
+				SimpleInfoDialog sidWarn = DialogFactory.getInstance().newSimpleInfoDialog(parentEkit.getFrame(), Translatrix.getTranslationString("Error"), true, Translatrix.getTranslationString("ErrorNoTextSelected"), SimpleInfoDialog.ERROR);
 			}
 			else
 			{
@@ -121,7 +122,7 @@ public class CustomAction extends StyledEditorKit.StyledTextAction
 				{
 					if(!htmlAttribs.containsKey("href"))
 					{
-						UserInputAnchorDialog uidInput = new UserInputAnchorDialog(parentEkit, Translatrix.getTranslationString("AnchorDialogTitle"), true, currentAnchor);
+						UserInputAnchorDialog uidInput = DialogFactory.getInstance().newSimpleInfoDialog(parentEkit, Translatrix.getTranslationString("AnchorDialogTitle"), true, currentAnchor);
 						String newAnchor = uidInput.getInputText();
 						uidInput.dispose();
 						if(newAnchor != null)

@@ -64,7 +64,7 @@ import javax.swing.undo.CannotUndoException;
 
 import space.leandragem.ekitten.action.*;
 import space.leandragem.ekitten.component.*;
-import space.leandragem.ekitten.dialogs.DialogFactory;
+import space.leandragem.ekitten.dialogs.*;
 import space.leandragem.util.Base64Codec;
 import space.leandragem.util.Load;
 import space.leandragem.util.Translatrix;

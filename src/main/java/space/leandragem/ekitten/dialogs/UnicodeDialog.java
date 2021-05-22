@@ -25,7 +25,7 @@ Unicode block names and character value ranges taken from data sheets at http://
 Copyright � 1991-2004 Unicode, Inc. All rights reserved. Distributed under the Terms of Use in http://www.unicode.org/copyright.html.
 */
 
-package space.leandragem.ekitten.component;
+package space.leandragem.ekitten.dialogs;
 
 import space.leandragem.ekitten.EkittenCore;
 import space.leandragem.util.Translatrix;

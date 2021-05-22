@@ -19,7 +19,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-package space.leandragem.ekitten.component;
+package space.leandragem.ekitten.dialogs;
 
 import java.awt.Frame;
 import java.beans.PropertyChangeEvent;
@@ -45,7 +45,7 @@ public class SimpleInfoDialog extends JDialog
 	private Object[] buttonLabels;
 	private Integer buttonState = new Integer(JOptionPane.CLOSED_OPTION);
 
-	public SimpleInfoDialog(Frame parent, String title, boolean bModal, String message, int type)
+	SimpleInfoDialog(Frame parent, String title, boolean bModal, String message, int type)
 	{
 		super(parent, title, bModal, parent.getGraphicsConfiguration());
 		if(type == QUESTION)

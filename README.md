@@ -6,7 +6,7 @@ Ekit
 > 
 > As the original license type changed, the package and project name changed, too.
 >
-> The code still is a fork of the 1.7b, so the version 1.8 is used. It is class compatible to the 1.7b.
+> The code still is a fork of the 1.7b, so the version 1.8 is used. It is source compatible to the 1.7b.
 ---
 ## Changes in 1.8
 - Port to Java 11.

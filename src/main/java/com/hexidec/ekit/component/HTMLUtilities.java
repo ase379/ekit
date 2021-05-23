@@ -59,9 +59,8 @@ public class HTMLUtilities
 */
 	}
 
-	/** Diese Methode f�gt durch String-Manipulation in jtpSource
-	  * ein neues Listenelement hinzu, content ist dabei der Text der in dem neuen
-	  * Element stehen soll
+	/** adds a new list element in jtpSource
+	  * @param content the text that shall be embedded in the new element
 	  */
 	public void insertListElement(String content)
 	{
@@ -325,11 +324,10 @@ public class HTMLUtilities
 			int i = 0;
 			while(sourceEn.hasMoreElements())
 			{
-				Object temp = new Object();
-				temp = sourceEn.nextElement();
-				sourceKeys[i] = (String) temp.toString();
+				Object temp = sourceEn.nextElement();
+				sourceKeys[i] = temp.toString();
 				sourceValues[i] = new String();
-				sourceValues[i] = (String) sourceAS.getAttribute(temp).toString();
+				sourceValues[i] = sourceAS.getAttribute(temp).toString();
 				i++;
 			}
 			String[] removeKeys = new String[removeAS.getAttributeCount()];
@@ -338,8 +336,8 @@ public class HTMLUtilities
 			int j = 0;
 			while(removeEn.hasMoreElements())
 			{
-				removeKeys[j] = (String) removeEn.nextElement().toString();
-				removeValues[j] = (String) removeAS.getAttribute(removeKeys[j]).toString();
+				removeKeys[j] = removeEn.nextElement().toString();
+				removeValues[j] = removeAS.getAttribute(removeKeys[j]).toString();
 				j++;
 			}
 			SimpleAttributeSet result = new SimpleAttributeSet();
@@ -347,7 +345,7 @@ public class HTMLUtilities
 			for(int countSource = 0; countSource < sourceKeys.length; countSource++)
 			{
 				hit = false;
-				if(sourceKeys[countSource].equals("name") | sourceKeys[countSource].equals("resolver"))
+				if(Objects.equals(sourceKeys[countSource],"name") | Objects.equals(sourceKeys[countSource],("resolver")))
 				{
 					hit = true;
 				}
@@ -374,7 +372,7 @@ public class HTMLUtilities
 						}
 						else if(removeKeys[countRemove].equals("NULL"))
 						{
-							if(sourceValues[countSource].toString().equals(removeValues[countRemove].toString()))
+							if(Objects.equals(sourceValues[countSource], removeValues[countRemove]))
 							{
 								hit = true;
 							}
@@ -383,7 +381,7 @@ public class HTMLUtilities
 				}
 				if(!hit)
 				{
-					result.addAttribute(sourceKeys[countSource].toString(), sourceValues[countSource].toString());
+					result.addAttribute(sourceKeys[countSource], sourceValues[countSource]);
 				}
 			}
 			return result;

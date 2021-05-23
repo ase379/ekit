@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 package com.hexidec.ekit.action;
 
 import java.awt.event.ActionEvent;
+import java.util.Objects;
 import java.util.StringTokenizer;
 import javax.swing.JEditorPane;
 import javax.swing.text.BadLocationException;
@@ -67,7 +68,8 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 			{
 				int pos = parentEkit.getCaretPosition();
 				parentEkit.setCaretPosition(pos);
-				if(ae.getActionCommand() != "newListPoint")
+				// action command can be null, check if its the proper action here.
+				if(!Objects.equals(ae.getActionCommand(), "newListPoint"))
 				{
 					if(htmlUtilities.checkParentsTag(HTML.Tag.OL) || htmlUtilities.checkParentsTag(HTML.Tag.UL))
 					{

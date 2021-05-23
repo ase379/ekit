@@ -3,6 +3,7 @@ package com.hexidec.ekit;
 import com.hexidec.ekit.action.*;
 import com.hexidec.ekit.component.*;
 import com.hexidec.ekit.dialogs.*;
+import com.hexidec.ekit.editor.menus.MenuItemFactory;
 import com.hexidec.ekit.images.ImageFactory;
 import com.hexidec.ekit.print.DocumentRenderer;
 import com.hexidec.util.Base64Codec;
@@ -188,6 +189,7 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 	{
 		super();
 
+		MenuItemFactory.getInstance().setMenuIconsVisible(showMenuIcons);
 		exclusiveEdit = editModeExclusive;
 		preserveUnknownTags = keepUnknownTags;
 		enterIsBreak = enterBreak;
@@ -408,10 +410,10 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		if(sysClipboard != null)
 		{
 			// System Clipboard versions of menu commands
-			JMenuItem jmiCut   = new JMenuItem(Translatrix.getTranslationString("Cut"));               jmiCut.setActionCommand(CMD_CLIP_CUT);            jmiCut.addActionListener(this);    jmiCut.setAccelerator(KeyStroke.getKeyStroke('X', CTRLKEY, false));   if(showMenuIcons) { jmiCut.setIcon(ImageFactory.getInstance().getImageIcon("Cut")); }     jMenuEdit.add(jmiCut);
-			JMenuItem jmiCopy  = new JMenuItem(Translatrix.getTranslationString("Copy"));              jmiCopy.setActionCommand(CMD_CLIP_COPY);          jmiCopy.addActionListener(this);   jmiCopy.setAccelerator(KeyStroke.getKeyStroke('C', CTRLKEY, false));  if(showMenuIcons) { jmiCopy.setIcon(ImageFactory.getInstance().getImageIcon("Copy")); }   jMenuEdit.add(jmiCopy);
-			JMenuItem jmiPaste = new JMenuItem(Translatrix.getTranslationString("Paste"));             jmiPaste.setActionCommand(CMD_CLIP_PASTE);        jmiPaste.addActionListener(this);  jmiPaste.setAccelerator(KeyStroke.getKeyStroke('V', CTRLKEY, false)); if(showMenuIcons) { jmiPaste.setIcon(ImageFactory.getInstance().getImageIcon("Paste")); } jMenuEdit.add(jmiPaste);
-			JMenuItem jmiPasteX = new JMenuItem(Translatrix.getTranslationString("PasteUnformatted")); jmiPasteX.setActionCommand(CMD_CLIP_PASTE_PLAIN); jmiPasteX.addActionListener(this); jmiPasteX.setAccelerator(KeyStroke.getKeyStroke('V', CTRLKEY + KeyEvent.SHIFT_MASK, false)); if(showMenuIcons) { jmiPasteX.setIcon(ImageFactory.getInstance().getImageIcon("PasteUnformatted")); } jMenuEdit.add(jmiPasteX);
+			jMenuEdit.add(MenuItemFactory.getInstance().createMenuItem("Cut", CMD_CLIP_CUT,this,KeyStroke.getKeyStroke('X', CTRLKEY, false),"Cut"));
+			jMenuEdit.add(MenuItemFactory.getInstance().createMenuItem("Copy", CMD_CLIP_COPY,this,KeyStroke.getKeyStroke('C', CTRLKEY, false),"Copy"));
+			jMenuEdit.add(MenuItemFactory.getInstance().createMenuItem("Paste", CMD_CLIP_PASTE,this,KeyStroke.getKeyStroke('V', CTRLKEY + KeyEvent.SHIFT_MASK, false),"Paste"));
+			jMenuEdit.add(MenuItemFactory.getInstance().createMenuItem("PasteUnformatted", CMD_CLIP_PASTE_PLAIN,this,KeyStroke.getKeyStroke('V', CTRLKEY+ KeyEvent.SHIFT_MASK, false),"PasteUnformatted"));
 		}
 		else
 		{

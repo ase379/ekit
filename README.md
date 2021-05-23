@@ -6,9 +6,9 @@ Ekit
 > 
 > As the original license type changed, the package and project name changed, too.
 >
-> The code still is a fork of the 1.7b, so the version 1.8 is used.
+> The code still is a fork of the 1.7b, so the version 1.8 is used. It is class compatible to the 1.7b.
 ---
-##Changes in 1.8
+## Changes in 1.8
 - Port to Java 11.
 - Fixed window handling error regarding the positions
 - Multiscreen-support, the window stick to the screen of the parent window

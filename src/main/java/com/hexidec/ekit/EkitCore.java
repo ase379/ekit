@@ -425,10 +425,10 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		JMenuItem jmiUndo    = new JMenuItem(undoAction); jmiUndo.setAccelerator(KeyStroke.getKeyStroke('Z', CTRLKEY, false)); if(showMenuIcons) { jmiUndo.setIcon(ImageFactory.getInstance().getImageIcon("Undo")); } jMenuEdit.add(jmiUndo);
 		JMenuItem jmiRedo    = new JMenuItem(redoAction); jmiRedo.setAccelerator(KeyStroke.getKeyStroke('Y', CTRLKEY, false)); if(showMenuIcons) { jmiRedo.setIcon(ImageFactory.getInstance().getImageIcon("Redo")); } jMenuEdit.add(jmiRedo);
 		jMenuEdit.addSeparator();
-		JMenuItem jmiSelAll  = new JMenuItem(actions.get(DefaultEditorKit.selectAllAction));       jmiSelAll.setText(Translatrix.getTranslationString("SelectAll"));        jmiSelAll.setAccelerator(KeyStroke.getKeyStroke('A', CTRLKEY, false)); jMenuEdit.add(jmiSelAll);
-		JMenuItem jmiSelPara = new JMenuItem(actions.get(DefaultEditorKit.selectParagraphAction)); jmiSelPara.setText(Translatrix.getTranslationString("SelectParagraph")); jMenuEdit.add(jmiSelPara);
-		JMenuItem jmiSelLine = new JMenuItem(actions.get(DefaultEditorKit.selectLineAction));      jmiSelLine.setText(Translatrix.getTranslationString("SelectLine"));      jMenuEdit.add(jmiSelLine);
-		JMenuItem jmiSelWord = new JMenuItem(actions.get(DefaultEditorKit.selectWordAction));      jmiSelWord.setText(Translatrix.getTranslationString("SelectWord"));      jMenuEdit.add(jmiSelWord);
+		JMenuItem jmiSelAll  = new JMenuItem(actions.get(DefaultEditorKit.selectAllAction));       jmiSelAll.setText(Translatrix.getTranslationString("SelectAll"));        if(showMenuIcons) { jmiSelAll.setIcon(ImageFactory.getInstance().getImageIcon("SelectAll")); } jmiSelAll.setAccelerator(KeyStroke.getKeyStroke('A', CTRLKEY, false)); jMenuEdit.add(jmiSelAll);
+		JMenuItem jmiSelPara = new JMenuItem(actions.get(DefaultEditorKit.selectParagraphAction)); jmiSelPara.setText(Translatrix.getTranslationString("SelectParagraph")); if(showMenuIcons) { jmiSelPara.setIcon(ImageFactory.getInstance().getImageIcon("SelectParagraph")); } jMenuEdit.add(jmiSelPara);
+		JMenuItem jmiSelLine = new JMenuItem(actions.get(DefaultEditorKit.selectLineAction));      jmiSelLine.setText(Translatrix.getTranslationString("SelectLine"));      if(showMenuIcons) { jmiSelLine.setIcon(ImageFactory.getInstance().getImageIcon("SelectLine")); } jMenuEdit.add(jmiSelLine);
+		JMenuItem jmiSelWord = new JMenuItem(actions.get(DefaultEditorKit.selectWordAction));      jmiSelWord.setText(Translatrix.getTranslationString("SelectWord"));      if(showMenuIcons) { jmiSelWord.setIcon(ImageFactory.getInstance().getImageIcon("SelectWord")); } jMenuEdit.add(jmiSelWord);
 		jMenuEdit.addSeparator();
 		JMenu jMenuEnterKey  = new JMenu(Translatrix.getTranslationString("EnterKeyMenu"));
 		jcbmiEnterKeyParag   = new JCheckBoxMenuItem(Translatrix.getTranslationString("EnterKeyParag"), !enterIsBreak); jcbmiEnterKeyParag.setActionCommand(CMD_ENTER_PARAGRAPH); jcbmiEnterKeyParag.addActionListener(this); jMenuEnterKey.add(jcbmiEnterKeyParag);
@@ -482,8 +482,12 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		JMenuItem jmiSupscript = new JMenuItem(actionFontSuperscript); if(showMenuIcons) { jmiSupscript.setIcon(ImageFactory.getInstance().getImageIcon("Super")); } jMenuFont.add(jmiSupscript);
 		JMenuItem jmiSubscript = new JMenuItem(actionFontSubscript);   if(showMenuIcons) { jmiSubscript.setIcon(ImageFactory.getInstance().getImageIcon("Sub")); }   jMenuFont.add(jmiSubscript);
 		jMenuFont.addSeparator();
-		jMenuFont.add(new JMenuItem(new FormatAction(this, Translatrix.getTranslationString("FormatBig"), HTML.Tag.BIG)));
-		jMenuFont.add(new JMenuItem(new FormatAction(this, Translatrix.getTranslationString("FormatSmall"), HTML.Tag.SMALL)));
+		var jmiFormatBig = new JMenuItem(new FormatAction(this, Translatrix.getTranslationString("FormatBig"), HTML.Tag.BIG));
+		if(showMenuIcons) { jmiFormatBig.setIcon(ImageFactory.getInstance().getImageIcon("FormatBig")); }
+		jMenuFont.add(jmiFormatBig);
+		var jmiFormatSmall = new JMenuItem(new FormatAction(this, Translatrix.getTranslationString("FormatSmall"), HTML.Tag.SMALL));
+		if(showMenuIcons) { jmiFormatSmall.setIcon(ImageFactory.getInstance().getImageIcon("FormatSmall")); }
+		jMenuFont.add(jmiFormatSmall);
 		JMenu jMenuFontSize = new JMenu(Translatrix.getTranslationString("FontSize"));
 			jMenuFontSize.add(new JMenuItem(new StyledEditorKit.FontSizeAction(Translatrix.getTranslationString("FontSize1"), 8)));
 			jMenuFontSize.add(new JMenuItem(new StyledEditorKit.FontSizeAction(Translatrix.getTranslationString("FontSize2"), 10)));
@@ -578,9 +582,9 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		jMenuInsert.addSeparator();
 		if(!isParentApplet)
 		{
-			JMenuItem jmiImageLocal = new JMenuItem(Translatrix.getTranslationString("InsertLocalImage") + menuDialog);  jmiImageLocal.setActionCommand(CMD_INSERT_IMAGE_LOCAL); jmiImageLocal.addActionListener(this); jMenuInsert.add(jmiImageLocal);
+			JMenuItem jmiImageLocal = new JMenuItem(Translatrix.getTranslationString("InsertLocalImage") + menuDialog);  jmiImageLocal.setActionCommand(CMD_INSERT_IMAGE_LOCAL); jmiImageLocal.addActionListener(this); if(showMenuIcons) { jmiImageLocal.setIcon(ImageFactory.getInstance().getImageIcon("InsertLocalImage")); } jMenuInsert.add(jmiImageLocal);
 		}
-		JMenuItem jmiImageURL     = new JMenuItem(Translatrix.getTranslationString("InsertURLImage") + menuDialog);    jmiImageURL.setActionCommand(CMD_INSERT_IMAGE_URL);     jmiImageURL.addActionListener(this);   jMenuInsert.add(jmiImageURL);
+		JMenuItem jmiImageURL     = new JMenuItem(Translatrix.getTranslationString("InsertURLImage") + menuDialog);    jmiImageURL.setActionCommand(CMD_INSERT_IMAGE_URL);     jmiImageURL.addActionListener(this); if(showMenuIcons) { jmiImageURL.setIcon(ImageFactory.getInstance().getImageIcon("InsertURLImage")); }  jMenuInsert.add(jmiImageURL);
 
 		/* TABLE Menu */
 		jMenuTable              = new JMenu(Translatrix.getTranslationString("Table"));

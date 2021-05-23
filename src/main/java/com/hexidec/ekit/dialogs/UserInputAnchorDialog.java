@@ -22,28 +22,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 package com.hexidec.ekit.dialogs;
 
 import com.hexidec.ekit.EkitCore;
-import java.awt.Container;
+import com.hexidec.util.Translatrix;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 public class UserInputAnchorDialog extends JDialog implements ActionListener
 {
-//	private com.hexidec.ekit.EkitCore parentEkit;
 	private String inputText = null;
 	private final JTextField jtxfInput = new JTextField(32);
 
 	UserInputAnchorDialog(EkitCore peKit, String title, boolean bModal, String defaultAnchor)
 	{		
 		super(peKit.getFrame(), title, bModal, peKit.getGraphicsConfiguration());
-//		parentEkit = peKit;
 		jtxfInput.setText(defaultAnchor);
 		init();
 	}
@@ -70,34 +63,34 @@ public class UserInputAnchorDialog extends JDialog implements ActionListener
 	  	setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
 	  	JPanel centerPanel = new JPanel();
+	  	centerPanel.setBorder(BorderFactory.createEmptyBorder(8,8,8,8));
        	centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
-	  	JLabel anchorLabel = new JLabel("Anchor:", SwingConstants.LEFT);
+
+	  	JLabel anchorLabel = new JLabel(Translatrix.getTranslationString("InsertAnchor"), SwingConstants.LEFT);
 	  	centerPanel.add(anchorLabel);
+	  	centerPanel.add(Box.createRigidArea(new Dimension(5,0)));
 	  	centerPanel.add(jtxfInput);
 
 		JPanel buttonPanel= new JPanel();	  	
 //	  	buttonPanel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
 
-		JButton saveButton = new JButton("Accept");
+		JButton saveButton = new JButton(Translatrix.getTranslationString("DialogAccept"));
 	  	saveButton.setActionCommand("accept");
 		saveButton.addActionListener(this);
 
-	  	JButton cancelButton = new JButton("Cancel");
+	  	JButton cancelButton = new JButton(Translatrix.getTranslationString("DialogClose") );
 	  	cancelButton.setActionCommand("cancel");
 		cancelButton.addActionListener(this);
 
-		JButton filesButton = new JButton("Server Files...");
-	  	filesButton.setActionCommand("files");
-		filesButton.addActionListener(this);
-
 		buttonPanel.add(saveButton);
 		buttonPanel.add(cancelButton);
-		buttonPanel.add(filesButton);
 
 		contentPane.add(centerPanel);
 		contentPane.add(buttonPanel);
 
  		this.pack();
+		DialogFactory.getInstance().centerWindow(this);
+		this.setVisible(true);
    	}
 
 	public String getInputText()

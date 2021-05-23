@@ -44,11 +44,11 @@ import com.hexidec.util.Translatrix;
   */
 public class ImageFileDialog extends JDialog implements ActionListener
 {
-	private String imageDir    = new String();
-	private String[] imageExts = new String[0];
-	private String imageDesc   = new String();
-	private File   imageFile   = (File)null;
-	private String imageSrc    = new String();
+	private final String imageDir;
+	private final String[] imageExts;
+	private final String imageDesc;
+	private String imageSrc;
+	private File imageFile;
 	private String imageAlt    = new String();
 	private String imageWidth  = new String();
 	private String imageHeight = new String();
@@ -61,8 +61,8 @@ public class ImageFileDialog extends JDialog implements ActionListener
 	private final JTextField jtxfAlt    = new JTextField(3);
 	private final JTextField jtxfWidth  = new JTextField(3);
 	private final JTextField jtxfHeight = new JTextField(3);
-	private final JCheckBox jchkIncorp = new JCheckBox();
-	private final JButtonNoFocus jbtnBrowse = new JButtonNoFocus("Browse");
+	private final JCheckBox jchkIncorp = new JCheckBox(Translatrix.getTranslationString("ImageIncorporate"));
+	private final JButtonNoFocus jbtnBrowse = new JButtonNoFocus(Translatrix.getTranslationString("Browse..."));
 
 	public ImageFileDialog(Frame parent, String imgDir, String[] imgExts, String imgDesc, String imgSrc, String title, boolean bModal)
 	{
@@ -73,19 +73,21 @@ public class ImageFileDialog extends JDialog implements ActionListener
 		this.imageDesc = imgDesc;
 		this.imageSrc  = imgSrc;
 
-		jbtnBrowse.getModel().setActionCommand("browse"); jbtnBrowse.addActionListener(this);
+		jchkIncorp.setSelected(true);
+		jbtnBrowse.getModel().setActionCommand("browse");
+		jbtnBrowse.addActionListener(this);
 		final Object[] buttonLabels = { Translatrix.getTranslationString("DialogAccept"), Translatrix.getTranslationString("DialogCancel") };
 		Object[] panelContents = {
 			Translatrix.getTranslationString("ImageSrc"),    jlblSrc,    jbtnBrowse,
 			Translatrix.getTranslationString("ImageAlt"),    jtxfAlt,
 			Translatrix.getTranslationString("ImageWidth"),  jtxfWidth,
 			Translatrix.getTranslationString("ImageHeight"), jtxfHeight,
-			Translatrix.getTranslationString("ImageIncorporate"), jchkIncorp
+			jchkIncorp
 		};
 		jOptionPane = new JOptionPane(panelContents, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION, null, buttonLabels, buttonLabels[0]);
 
 		setContentPane(jOptionPane);
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we)
@@ -94,56 +96,53 @@ public class ImageFileDialog extends JDialog implements ActionListener
 			}
 		});
 
-		jOptionPane.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent e)
+		jOptionPane.addPropertyChangeListener(e -> {
+			String prop = e.getPropertyName();
+			if(isVisible()
+				&& (e.getSource() == jOptionPane)
+				&& (prop.equals(JOptionPane.VALUE_PROPERTY) || prop.equals(JOptionPane.INPUT_VALUE_PROPERTY)))
 			{
-				String prop = e.getPropertyName();
-				if(isVisible() 
-					&& (e.getSource() == jOptionPane)
-					&& (prop.equals(JOptionPane.VALUE_PROPERTY) || prop.equals(JOptionPane.INPUT_VALUE_PROPERTY)))
+				Object value = jOptionPane.getValue();
+				if(value == JOptionPane.UNINITIALIZED_VALUE)
 				{
-					Object value = jOptionPane.getValue();
-					if(value == JOptionPane.UNINITIALIZED_VALUE)
-					{
-						return;
+					return;
+				}
+				if(imageFile != null) {
+					try {
+						BufferedImage bimg = ImageIO.read(imageFile);
+						if(jtxfWidth.getText().isEmpty())
+							jtxfWidth.setText(Integer.toString(bimg.getWidth()));
+						if(jtxfHeight.getText().isEmpty())
+							jtxfHeight.setText(Integer.toString(bimg.getHeight()));
+					} catch (IOException ex) {
+						System.out.println(ex.getMessage());
 					}
-					if(imageFile != null) {
-						try {
-							BufferedImage bimg = ImageIO.read(imageFile);
-							if(jtxfWidth.getText().isEmpty())
-								jtxfWidth.setText(Integer.toString(bimg.getWidth()));
-							if(jtxfHeight.getText().isEmpty())
-								jtxfHeight.setText(Integer.toString(bimg.getHeight()));
-						} catch (IOException ex) {
-							System.out.println(ex.getMessage());
-						}
-					}
+				}
 
-					if(value.equals(buttonLabels[0]))
-					{
-						imageSrc    = jlblSrc.getText();
-						imageAlt    = jtxfAlt.getText();
-						imageWidth  = jtxfWidth.getText();
-						imageHeight = jtxfHeight.getText();
-						incorporate = jchkIncorp.isSelected();
-						mimeType    = mimeTypeByExtension(getExtensionByString(imageFile.getName()).get());
-						setVisible(false);
-					}
-					else if(value.equals(buttonLabels[1]))
-					{
+				if(value.equals(buttonLabels[0]))
+				{
+					imageSrc    = jlblSrc.getText();
+					imageAlt    = jtxfAlt.getText();
+					imageWidth  = jtxfWidth.getText();
+					imageHeight = jtxfHeight.getText();
+					incorporate = jchkIncorp.isSelected();
+					mimeType    = mimeTypeByExtension(getExtensionByString(imageFile.getName()).get());
+					setVisible(false);
+				}
+				else if(value.equals(buttonLabels[1]))
+				{
 
-						imageSrc    = "";
-						imageAlt    = "";
-						imageWidth  = "";
-						imageHeight = "";
-						incorporate = false;
-						mimeType    = "";
-						setVisible(false);
-					}
-					else
-					{
-						jOptionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
-					}
+					imageSrc    = "";
+					imageAlt    = "";
+					imageWidth  = "";
+					imageHeight = "";
+					incorporate = false;
+					mimeType    = "";
+					setVisible(false);
+				}
+				else
+				{
+					jOptionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
 				}
 			}
 		});

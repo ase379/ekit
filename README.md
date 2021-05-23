@@ -13,6 +13,8 @@ Ekit
 - Fixed window handling error regarding the positions
 - Multiscreen-support, the window stick to the screen of the parent window
 - Flexible Icon retrieval for supporting other icon source and icons, e.g. for ribbons 
+- Added missing icons in the code.
+- Added missing translations in the code.
 
 ---
 ###### Originally had a _LGPLv2.1_ license, updated to v3.0

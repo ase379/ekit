@@ -128,6 +128,9 @@ public class PropertiesDialog extends JDialog
 
 	public String getFieldValue(String fieldName)
 	{
+		if(!jOptionPane.getValue().equals(Translatrix.getTranslationString("DialogAccept")))
+			return "";
+
 		Object dataField = htInputFields.get(fieldName);
 		if(dataField instanceof JTextField)
 		{

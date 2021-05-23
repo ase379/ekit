@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>leandragem.space</groupId>
-    <artifactId>Ekit</artifactId>
+    <groupId>com.hexidec.ekit</groupId>
+    <artifactId>ekit</artifactId>
     <version>1.8.0</version>
     <packaging>jar</packaging>
 
-    <name>Ekit</name>
+    <name>ekit</name>
     <description>Simple java WYSIWYG HTML editor, made with Swing</description>
     <url>https://github.com/leandrogenas/Ekit</url>
 

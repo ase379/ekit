@@ -1,4 +1,4 @@
-ekitten
+Ekit
 ---
 > This is a maven-compatible fork of the ekit open source project
 > made to be redistributable with Maven. It is based on the version

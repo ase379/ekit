@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>leandragem.space</groupId>
-    <artifactId>ekitten</artifactId>
+    <artifactId>Ekit</artifactId>
     <version>1.8.0</version>
     <packaging>jar</packaging>
 
-    <name>ekitten</name>
+    <name>Ekit</name>
     <description>Simple java WYSIWYG HTML editor, made with Swing</description>
-    <url>https://github.com/leandrogenas/ekitten</url>
+    <url>https://github.com/leandrogenas/Ekit</url>
 
     <licenses>
         <license>
@@ -83,7 +83,7 @@
                 <configuration>
                     <outputDirectory>${project.basedir}/dist</outputDirectory>
                     <archive>
-                        <manifestFile>src/main/resources/ekitten.manifest</manifestFile>
+                        <manifestFile>src/main/resources/Ekit.manifest</manifestFile>
                     </archive>
                 </configuration>
             </plugin>

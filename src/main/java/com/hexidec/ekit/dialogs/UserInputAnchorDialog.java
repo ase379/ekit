@@ -98,7 +98,6 @@ public class UserInputAnchorDialog extends JDialog implements ActionListener
 		contentPane.add(buttonPanel);
 
  		this.pack();
-		this.setVisible(true);
    	}
 
 	public String getInputText()

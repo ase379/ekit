@@ -123,6 +123,7 @@ public class CustomAction extends StyledEditorKit.StyledTextAction
 					if(!htmlAttribs.containsKey("href"))
 					{
 						UserInputAnchorDialog uidInput = DialogFactory.getInstance().newSimpleInfoDialog(parentEkit, Translatrix.getTranslationString("AnchorDialogTitle"), true, currentAnchor);
+						uidInput.setVisible(true);
 						String newAnchor = uidInput.getInputText();
 						uidInput.dispose();
 						if(newAnchor != null)

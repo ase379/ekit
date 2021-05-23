@@ -27,7 +27,7 @@ import java.awt.GridBagConstraints;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import static com.hexidec.ekit.editor.Toolbar.*;
 
@@ -175,8 +175,9 @@ public class Ekit extends JFrame
 
 	/** Main method
 	  */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
 		String sDocument = null;
 		String sStyleSheet = null;
 		String sRawDocument = null;

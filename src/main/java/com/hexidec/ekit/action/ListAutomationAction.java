@@ -39,9 +39,10 @@ import com.hexidec.ekit.component.*;
 public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 {
 	protected EkitCore parentEkit;
-	private HTML.Tag baseTag;
-	private String sListType;
-	private HTMLUtilities htmlUtilities;
+	private final HTML.Tag baseTag;
+	private final HTMLUtilities htmlUtilities;
+
+	private final boolean debugOutput = false;
 
 	public ListAutomationAction(EkitCore ekit, String sLabel, HTML.Tag listType)
 	{
@@ -55,7 +56,7 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 	{
 		try
 		{
-			JEditorPane jepEditor = (JEditorPane)(parentEkit.getTextPane());
+			JEditorPane jepEditor =parentEkit.getTextPane();
 			String selTextBase = jepEditor.getSelectedText();
 			int textLength = -1;
 			if(selTextBase != null)
@@ -66,7 +67,7 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 			{
 				int pos = parentEkit.getCaretPosition();
 				parentEkit.setCaretPosition(pos);
-				if(!ae.getActionCommand().equals("newListPoint"))
+				if(ae.getActionCommand() != "newListPoint")
 				{
 					if(htmlUtilities.checkParentsTag(HTML.Tag.OL) || htmlUtilities.checkParentsTag(HTML.Tag.UL))
 					{
@@ -75,7 +76,7 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 					}
 				}
 				String sListType = (baseTag == HTML.Tag.OL ? "ol" : "ul");
-				StringBuffer sbNew = new StringBuffer();
+				StringBuilder sbNew = new StringBuilder();
 				if(htmlUtilities.checkParentsTag(baseTag))
 				{
 					sbNew.append("<li></li>");
@@ -89,7 +90,7 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 					{
 						isLast = true;
 					}
-					sbNew.append("<" + sListType + "><li></li></" + sListType + ">" + (isLast ? "<p style=\"margin-top: 0\">&nbsp;</p>" : ""));
+					sbNew.append("<").append(sListType).append("><li></li></").append(sListType).append(">").append((isLast ? "<p style=\"margin-top: 0\">&nbsp;</p>" : ""));
 					insertHTML(parentEkit.getTextPane(), parentEkit.getExtendedHtmlDoc(), parentEkit.getTextPane().getCaretPosition(), sbNew.toString(), 0, 0, (sListType.equals("ol") ? HTML.Tag.OL : HTML.Tag.UL));
 					if(true)
 					{
@@ -103,7 +104,6 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 				if(htmlUtilities.checkParentsTag(HTML.Tag.OL) || htmlUtilities.checkParentsTag(HTML.Tag.UL))
 				{
 					revertList(htmlUtilities.getListItemContainer());
-					return;
 				}
 				else
 				{
@@ -112,31 +112,32 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 					int iStart = jepEditor.getSelectionStart();
 					int iEnd   = jepEditor.getSelectionEnd();
 					String selText = htmlDoc.getText(iStart, iEnd - iStart);
-/*
-for(int ch = 0; ch < selText.length(); ch++)
-{
-	Element elem = htmlDoc.getCharacterElement(iStart + ch);
-	System.out.println("elem " + ch + ": " + elem.getName());
-	System.out.println("char " + ch + ": " + selText.charAt(ch) + " [" + Character.getNumericValue(selText.charAt(ch)) + "]");
-	if(Character.getNumericValue(selText.charAt(ch)) < 0)
-	{
-		System.out.println("  is space?    " + ((selText.charAt(ch) == '\u0020') ? "YES" : "---"));
-		System.out.println("  is return?   " + ((selText.charAt(ch) == '\r') ? "YES" : "---"));
-		System.out.println("  is newline?  " + ((selText.charAt(ch) == '\n') ? "YES" : "---"));
-		System.out.println("  is nextline? " + ((selText.charAt(ch) == '\u0085') ? "YES" : "---"));
-		System.out.println("  is linesep?  " + ((selText.charAt(ch) == '\u2028') ? "YES" : "---"));
-		System.out.println("  is parasep?  " + ((selText.charAt(ch) == '\u2029') ? "YES" : "---"));
-		System.out.println("  is verttab?  " + ((selText.charAt(ch) == '\u000B') ? "YES" : "---"));
-		System.out.println("  is formfeed? " + ((selText.charAt(ch) == '\u000C') ? "YES" : "---"));
-	}
-}
-*/
-					StringBuffer sbNew = new StringBuffer();
-					sbNew.append("<" + sListType + ">");
+
+					if (debugOutput) {
+						for(int ch = 0; ch < selText.length(); ch++)
+						{
+							Element elem = htmlDoc.getCharacterElement(iStart + ch);
+							System.out.println("elem " + ch + ": " + elem.getName());
+							System.out.println("char " + ch + ": " + selText.charAt(ch) + " [" + Character.getNumericValue(selText.charAt(ch)) + "]");
+							if(Character.getNumericValue(selText.charAt(ch)) < 0)
+							{
+								System.out.println("  is space?    " + ((selText.charAt(ch) == '\u0020') ? "YES" : "---"));
+								System.out.println("  is return?   " + ((selText.charAt(ch) == '\r') ? "YES" : "---"));
+								System.out.println("  is newline?  " + ((selText.charAt(ch) == '\n') ? "YES" : "---"));
+								System.out.println("  is nextline? " + ((selText.charAt(ch) == '\u0085') ? "YES" : "---"));
+								System.out.println("  is linesep?  " + ((selText.charAt(ch) == '\u2028') ? "YES" : "---"));
+								System.out.println("  is parasep?  " + ((selText.charAt(ch) == '\u2029') ? "YES" : "---"));
+								System.out.println("  is verttab?  " + ((selText.charAt(ch) == '\u000B') ? "YES" : "---"));
+								System.out.println("  is formfeed? " + ((selText.charAt(ch) == '\u000C') ? "YES" : "---"));
+							}
+						}
+					}
+					StringBuilder sbNew = new StringBuilder();
+					sbNew.append("<").append(sListType).append(">");
 					// tokenize on known linebreaks if present, otherwise manually parse on <br> break tags
-					if((selText.indexOf("\r") > -1) || (selText.indexOf("\n") > -1))
+					if((selText.contains("\r")) || (selText.contains("\n")))
 					{
-						String sToken = ((selText.indexOf("\r") > -1) ? "\r" : "\n");
+						String sToken = ((selText.contains("\r")) ? "\r" : "\n");
 						StringTokenizer stTokenizer = new StringTokenizer(selText, sToken);
 						while(stTokenizer.hasMoreTokens())
 						{
@@ -147,14 +148,14 @@ for(int ch = 0; ch < selText.length(); ch++)
 					}
 					else
 					{
-						StringBuffer sbItem = new StringBuffer();
+						StringBuilder sbItem = new StringBuilder();
 						for(int ch = 0; ch < selText.length(); ch++)
 						{
 							String elem = (htmlDoc.getCharacterElement(iStart + ch) != null ? htmlDoc.getCharacterElement(iStart + ch).getName().toLowerCase() : "[null]");
 							if(elem.equals("br") && sbItem.length() > 0)
 							{
 								sbNew.append("<li>");
-								sbNew.append(sbItem.toString());
+								sbNew.append(sbItem);
 								sbNew.append("</li>");
 								sbItem.delete(0, sbItem.length());
 							}
@@ -164,7 +165,7 @@ for(int ch = 0; ch < selText.length(); ch++)
 							}
 						}
 					}
-					sbNew.append("</" + sListType + ">");
+					sbNew.append("</").append(sListType).append(">");
 					htmlDoc.remove(iStart, iEnd - iStart);
 					insertHTML(jepEditor, htmlDoc, iStart, sbNew.toString(), 1, 1, null);
 				}
@@ -175,7 +176,9 @@ for(int ch = 0; ch < selText.length(); ch++)
 
 	private void revertList(Element element)
 	{
-//System.out.println("Reverting list " + element.toString());
+		if (debugOutput) {
+			System.out.println("Reverting list " + element.toString());
+		}
 		if(element == null)
 		{
 			return;
@@ -183,14 +186,14 @@ for(int ch = 0; ch < selText.length(); ch++)
 		int pos = parentEkit.getCaretPosition();
 		HTML.Tag tag = htmlUtilities.getHTMLTag(element);
 		String source = parentEkit.getSourcePane().getText();
-		boolean hit = false;
+		boolean hit;
 		String idString;
 		int counter = 0;
 		do
 		{
 			hit = false;
 			idString = "revertomatictaggen" + counter;
-			if(source.indexOf(idString) > -1)
+			if(source.contains(idString))
 			{
 				counter++;
 				hit = true;
@@ -205,16 +208,14 @@ for(int ch = 0; ch < selText.length(); ch++)
 		parentEkit.getExtendedHtmlDoc().replaceAttributes(element, sa, tag);
 		parentEkit.refreshOnUpdate();
 		source = parentEkit.getSourcePane().getText();
-		StringBuffer newHtmlString = new StringBuffer();
+		StringBuilder newHtmlString = new StringBuilder();
 		int[] position = htmlUtilities.getPositions(element, source, true, idString);
 		if(position == null)
 		{
 			return;
 		}
-		for(int i = 0; i < position.length; i++)
-		{
-			if(position[i] < 0)
-			{
+		for (int currentPosition : position) {
+			if (currentPosition < 0) {
 				return;
 			}
 		}
@@ -224,12 +225,14 @@ for(int ch = 0; ch < selText.length(); ch++)
 		int endEndTag = position[3];
 		newHtmlString.append(source.substring(0, beginStartTag));
 		String listText = source.substring(endStartTag, beginEndTag);
-//System.out.println("Affected text is :" + listText);
+		if (debugOutput) {
+			System.out.println("Affected text is :" + listText);
+		}
 		if(parentEkit.getEnterKeyIsBreak())
 		{
 			listText = listText.replaceAll("<li>", "");
 			listText = listText.replaceAll("</li>", "<br/>");
-			newHtmlString.append("<br/>" + listText);
+			newHtmlString.append("<br/>").append(listText);
 		}
 		else
 		{
@@ -237,8 +240,10 @@ for(int ch = 0; ch < selText.length(); ch++)
 			listText = listText.replaceAll("</li>", "</p>");
 			newHtmlString.append(listText);
 		}
-//System.out.println("Updated text is :" + listText);
-		newHtmlString.append(source.substring(endEndTag, source.length()));
+		if (debugOutput) {
+			System.out.println("Updated text is :" + listText);
+		}
+		newHtmlString.append(source.substring(endEndTag));
 		parentEkit.getTextPane().setText(newHtmlString.toString());
 		parentEkit.refreshOnUpdate();
 	}

@@ -56,13 +56,11 @@ public class EkitHyperlinkListener implements MouseListener, MouseMotionListener
                 {
                     handCursor  = true;
                     ((HTMLEditorKit)textPane.getEditorKit()).setDefaultCursor(new Cursor(Cursor.HAND_CURSOR) );
-                    System.out.println("handcursor on");
-                } 
+                }
                 else if (!hasValidLink && handCursor)
                 {
                     handCursor  = false;
                     ((HTMLEditorKit)textPane.getEditorKit()).setDefaultCursor(new Cursor(Cursor.TEXT_CURSOR) );
-                    System.out.println("handcursor off");
                 }
             }
         }

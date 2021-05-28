@@ -15,6 +15,7 @@ Ekit
 - Flexible Icon retrieval for supporting other icon source and icons, e.g. for ribbons 
 - Added missing icons in the code.
 - Added missing translations in the code.
+- support for hyperlink clicking
 
 ---
 ###### Originally had a _LGPLv2.1_ license, updated to v3.0

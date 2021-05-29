@@ -942,10 +942,12 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		if(showViewSource)
 		{
 			jspltDisplay.setBottomComponent(jspSource);
+			jspltDisplay.setDividerSize(5);
 		}
 		else
 		{
 			jspltDisplay.setBottomComponent(null);
+			jspltDisplay.setDividerSize(0);
 		}
 
 		iSplitPos = jspltDisplay.getDividerLocation();
@@ -3315,6 +3317,7 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		{
 			jtpSource.setText(jtpMain.getText());
 			jspltDisplay.setRightComponent(jspSource);
+
 			if(exclusiveEdit)
 			{
 				jspltDisplay.setDividerLocation(0);
@@ -3323,12 +3326,14 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 			}
 			else
 			{
+				jspltDisplay.setDividerSize(5);
 				jspltDisplay.setDividerLocation(iSplitPos);
 				jspltDisplay.setEnabled(true);
 			}
 		}
 		else
 		{
+			jspltDisplay.setDividerSize(0);
 			jtpMain.setText(jtpSource.getText());
 			iSplitPos = jspltDisplay.getDividerLocation();
 			jspltDisplay.remove(jspSource);

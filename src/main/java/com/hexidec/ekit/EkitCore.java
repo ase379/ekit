@@ -1567,9 +1567,12 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 					}
 				}
 //				else if(enterIsBreak)
-				else if(true)
+				else
 				{
-					insertBreak();
+					if (enterIsBreak)
+						insertBreak();
+					else
+						insertParagraph();
 					ke.consume();
 				}
 			}
@@ -2098,6 +2101,15 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		int caretPos = jtpMain.getCaretPosition();
 		htmlKit.insertHTML(htmlDoc, caretPos, "<BR>", 0, 0, HTML.Tag.BR);
 		jtpMain.setCaretPosition(caretPos + 1);
+	}
+
+	/** Method for inserting a paragraph (P) element
+	 */
+	private void insertParagraph()
+			throws IOException, BadLocationException, RuntimeException
+	{
+		int caretPos = jtpMain.getCaretPosition();
+		htmlKit.insertHTML(htmlDoc, caretPos, "", 0, 0, HTML.Tag.P);
 	}
 
 	/** Method for inserting a horizontal rule (HR) element

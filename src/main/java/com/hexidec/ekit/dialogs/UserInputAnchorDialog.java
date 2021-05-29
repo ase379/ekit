@@ -72,11 +72,12 @@ public class UserInputAnchorDialog extends JDialog implements ActionListener
 	  	centerPanel.add(jtxfInput);
 
 		JPanel buttonPanel= new JPanel();	  	
-//	  	buttonPanel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
 
 		JButton saveButton = new JButton(Translatrix.getTranslationString("DialogAccept"));
 	  	saveButton.setActionCommand("accept");
 		saveButton.addActionListener(this);
+		getRootPane().setDefaultButton(saveButton);
+
 
 	  	JButton cancelButton = new JButton(Translatrix.getTranslationString("DialogClose") );
 	  	cancelButton.setActionCommand("cancel");

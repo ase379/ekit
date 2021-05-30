@@ -1,4 +1,4 @@
-package com.hexidec.ekit.component;
+package com.hexidec.ekit.text.handlers;
 
 import javax.swing.*;
 import javax.swing.text.*;
@@ -11,13 +11,13 @@ import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class EkitHyperlinkListener implements MouseListener, MouseMotionListener {
+class HyperlinkHandler implements MouseListener, MouseMotionListener {
 
     private final JTextPane textPane;
     private boolean handCursor;
     private String linkHRef = "";
 
-    public EkitHyperlinkListener(JTextPane textPane) {
+    public HyperlinkHandler(JTextPane textPane) {
         this.textPane = textPane;
     }
 

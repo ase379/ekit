@@ -6,6 +6,7 @@ import com.hexidec.ekit.dialogs.*;
 import com.hexidec.ekit.editor.menus.MenuItemFactory;
 import com.hexidec.ekit.images.ImageFactory;
 import com.hexidec.ekit.print.DocumentRenderer;
+import com.hexidec.ekit.text.handlers.EkitTextPane;
 import com.hexidec.util.Base64Codec;
 import com.hexidec.util.Load;
 import com.hexidec.util.Translatrix;
@@ -46,7 +47,7 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 {
 	/* Components */
 	private final JSplitPane jspltDisplay;
-	private final JTextPane jtpMain;
+	private final EkitTextPane jtpMain;
 	private final ExtendedHTMLEditorKit htmlKit;
 	private ExtendedHTMLDocument htmlDoc;
 	private StyleSheet styleSheet;
@@ -237,7 +238,7 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		}
 
 		/* Create the editor kit, document, and stylesheet */
-		jtpMain = new JTextPane();
+		jtpMain = new EkitTextPane();
 
 		htmlKit = new ExtendedHTMLEditorKit();
 		htmlDoc = (ExtendedHTMLDocument)(htmlKit.createDefaultDocument());
@@ -253,10 +254,6 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		jtpMain.setMargin(new Insets(4, 4, 4, 4));
 		jtpMain.addKeyListener(this);
 		jtpMain.addFocusListener(this);
-		var hyperlinkListener = new EkitHyperlinkListener(jtpMain);
-		jtpMain.addMouseListener(hyperlinkListener);
-		jtpMain.addMouseMotionListener(hyperlinkListener);
-//		jtpMain.setDragEnabled(true); // this causes an error in older Java versions
 
 		/* Create the source text area */
 		if(sdocSource == null)
@@ -1566,7 +1563,6 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 						}
 					}
 				}
-//				else if(enterIsBreak)
 				else
 				{
 					if (enterIsBreak)

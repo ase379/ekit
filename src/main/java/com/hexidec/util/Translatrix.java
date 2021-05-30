@@ -30,9 +30,19 @@ public class Translatrix
 	private static ResourceBundle langResources;
 	private static String bundleName;
 
-	public Translatrix(String bundle)
+	public static void init(String bundle, String language, String country) {
+		Translatrix.setBundleName(bundle);
+		Locale baseLocale = null;
+		if(language != null && country != null)
+		{
+			baseLocale = new Locale(language, country);
+		}
+		Translatrix.setLocale(baseLocale);
+	}
+
+	private static void setBundleName(String bundle)
 	{
-		bundleName = new String(bundle);
+		bundleName = bundle;
 		try
 		{
 			langResources = ResourceBundle.getBundle(bundleName);
@@ -43,20 +53,7 @@ public class Translatrix
 		}
 	}
 
-	public static void setBundleName(String bundle)
-	{
-		bundleName = new String(bundle);
-		try
-		{
-			langResources = ResourceBundle.getBundle(bundleName);
-		}
-		catch(MissingResourceException mre)
-		{
-			logException("MissingResourceException while loading language file", mre);
-		}
-	}
-
-	public static void setLocale(Locale locale)
+	private static void setLocale(Locale locale)
 	{
 		if(bundleName == null)
 		{
@@ -93,7 +90,7 @@ public class Translatrix
 		}
 	}
 
-	public static void setLocale(String sLanguage, String sCountry)
+	private static void setLocale(String sLanguage, String sCountry)
 	{
 		if(sLanguage != null && sCountry != null)
 		{

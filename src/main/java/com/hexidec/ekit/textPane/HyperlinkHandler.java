@@ -1,4 +1,4 @@
-package com.hexidec.ekit.text.handlers;
+package com.hexidec.ekit.textPane;
 
 import javax.swing.*;
 import javax.swing.text.*;

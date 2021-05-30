@@ -6,7 +6,8 @@ import com.hexidec.ekit.dialogs.*;
 import com.hexidec.ekit.editor.menus.MenuItemFactory;
 import com.hexidec.ekit.images.ImageFactory;
 import com.hexidec.ekit.print.DocumentRenderer;
-import com.hexidec.ekit.text.handlers.EkitTextPane;
+import com.hexidec.ekit.textPane.EKitSourceTextPane;
+import com.hexidec.ekit.textPane.EkitTextPane;
 import com.hexidec.util.Base64Codec;
 import com.hexidec.util.Load;
 import com.hexidec.util.Translatrix;
@@ -51,7 +52,7 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 	private final ExtendedHTMLEditorKit htmlKit;
 	private ExtendedHTMLDocument htmlDoc;
 	private StyleSheet styleSheet;
-	private final JTextArea jtpSource;
+	private final EKitSourceTextPane jtpSource;
 	private final JScrollPane jspSource;
 	private JToolBar jToolBar;
 	private JToolBar jToolBarMain;
@@ -215,23 +216,18 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		jtpMain.addFocusListener(this);
 
 		/* Create the source text area */
+		jtpSource = new EKitSourceTextPane(settings.sdocSource);
 		if(settings.sdocSource == null)
 		{
-			jtpSource = new JTextArea();
 			jtpSource.setText(jtpMain.getText());
 		}
 		else
 		{
-			jtpSource = new JTextArea(settings.sdocSource);
 			jtpMain.setText(jtpSource.getText());
 		}
-		jtpSource.setBackground(new Color(212, 212, 212));
-		jtpSource.setSelectionColor(new Color(255, 192, 192));
-		jtpSource.setMargin(new Insets(4, 4, 4, 4));
+
 		jtpSource.getDocument().addDocumentListener(this);
 		jtpSource.addFocusListener(this);
-		jtpSource.setCursor(new Cursor(Cursor.TEXT_CURSOR));
-		jtpSource.setColumns(1024);
 
 		/* Add CaretListener for tracking caret location events */
 		jtpMain.addCaretListener(this::handleCaretPositionChange);

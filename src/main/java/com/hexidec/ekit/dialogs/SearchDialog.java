@@ -21,17 +21,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package com.hexidec.ekit.dialogs;
 
-import java.awt.Frame;
+import com.hexidec.util.Translatrix;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-import com.hexidec.util.Translatrix;
 
 /** Class for providing a dialog that lets the user specify arguments for
   * the Search Find/Replace functions
@@ -55,75 +50,71 @@ public class SearchDialog extends JDialog
 		final JCheckBox  jchkTop         = new JCheckBox(Translatrix.getTranslationString("SearchStartAtTop"), bTopSetting);
 		final JCheckBox  jchkAll         = new JCheckBox(Translatrix.getTranslationString("SearchReplaceAll"), false);
 		final Object[] buttonLabels      = { Translatrix.getTranslationString("DialogAccept"), Translatrix.getTranslationString("DialogCancel") };
+		Object[] panelContents;
 		if(bIsReplace)
 		{
-			Object[] panelContents = {
-				Translatrix.getTranslationString("SearchFind"),
-				jtxfFindTerm,
-				Translatrix.getTranslationString("SearchReplace"),
-				jtxfReplaceTerm,
-				jchkAll,
-				jchkCase,
-				jchkTop
+			panelContents = new Object[]{
+					Translatrix.getTranslationString("SearchFind"),
+					jtxfFindTerm,
+					Translatrix.getTranslationString("SearchReplace"),
+					jtxfReplaceTerm,
+					jchkAll,
+					jchkCase,
+					jchkTop
 			};
-			jOptionPane = new JOptionPane(panelContents, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION, null, buttonLabels, buttonLabels[0]);
 		}
 		else
 		{
-			Object[] panelContents = {
-				Translatrix.getTranslationString("SearchFind"),
-				jtxfFindTerm,
-				jchkCase,
-				jchkTop
+			panelContents = new Object[]{
+					Translatrix.getTranslationString("SearchFind"),
+					jtxfFindTerm,
+					jchkCase,
+					jchkTop
 			};
-			jOptionPane = new JOptionPane(panelContents, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION, null, buttonLabels, buttonLabels[0]);
 		}
+		jOptionPane = new JOptionPane(panelContents, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION, null, buttonLabels, buttonLabels[0]);
 		setContentPane(jOptionPane);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we)
 			{
-				jOptionPane.setValue(new Integer(JOptionPane.CLOSED_OPTION));
+				jOptionPane.setValue(Integer.valueOf(JOptionPane.CLOSED_OPTION));
 			}
 		});
 
-		jOptionPane.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent e)
+		jOptionPane.addPropertyChangeListener(e -> {
+			String prop = e.getPropertyName();
+			if(isVisible()
+				&& (e.getSource() == jOptionPane)
+				&& (prop.equals(JOptionPane.VALUE_PROPERTY) || prop.equals(JOptionPane.INPUT_VALUE_PROPERTY)))
 			{
-				String prop = e.getPropertyName();
-				if(isVisible() 
-					&& (e.getSource() == jOptionPane)
-					&& (prop.equals(JOptionPane.VALUE_PROPERTY) || prop.equals(JOptionPane.INPUT_VALUE_PROPERTY)))
+				Object value = jOptionPane.getValue();
+				if(value == JOptionPane.UNINITIALIZED_VALUE)
 				{
-					Object value = jOptionPane.getValue();
-					if(value == JOptionPane.UNINITIALIZED_VALUE)
+					return;
+				}
+				jOptionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
+				if(value.equals(buttonLabels[0]))
+				{
+					inputFindTerm  = jtxfFindTerm.getText();
+					bCaseSensitive = jchkCase.isSelected();
+					bStartAtTop    = jchkTop.isSelected();
+					if(isReplaceDialog)
 					{
-						return;
-					}
-					jOptionPane.setValue(JOptionPane.UNINITIALIZED_VALUE);
-					if(value.equals(buttonLabels[0]))
-					{
-						inputFindTerm  = jtxfFindTerm.getText();
-						bCaseSensitive = jchkCase.isSelected();
-						bStartAtTop    = jchkTop.isSelected();
-						if(isReplaceDialog)
-						{
-							inputReplaceTerm = jtxfReplaceTerm.getText();
-							bReplaceAll      = jchkAll.isSelected();
-						}
-						setVisible(false);
-					}
-					else
-					{
-						inputFindTerm    = null;
-						inputReplaceTerm = null;
-						bCaseSensitive   = false;
-						bStartAtTop      = false;
-						bReplaceAll      = false;
-						setVisible(false);
+						inputReplaceTerm = jtxfReplaceTerm.getText();
+						bReplaceAll      = jchkAll.isSelected();
 					}
 				}
+				else
+				{
+					inputFindTerm    = null;
+					inputReplaceTerm = null;
+					bCaseSensitive   = false;
+					bStartAtTop      = false;
+					bReplaceAll      = false;
+				}
+				setVisible(false);
 			}
 		});
 		this.pack();

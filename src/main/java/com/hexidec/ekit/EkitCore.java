@@ -2237,10 +2237,10 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 	private void doSearch(String searchFindTerm, String searchReplaceTerm, boolean bIsFindReplace, boolean bCaseSensitive, boolean bStartAtTop)
 	{
 		boolean bReplaceAll = false;
-		JTextComponent searchPane = (JTextComponent)jtpMain;
-		if(jspSource.isShowing() || jtpSource.hasFocus())
+		JTextComponent searchPane = jtpMain;
+		if(jspSource.isShowing() && jtpSource.hasFocus())
 		{
-			searchPane = (JTextComponent)jtpSource;
+			searchPane = jtpSource;
 		}
 		if(searchFindTerm == null || (bIsFindReplace && searchReplaceTerm == null))
 		{
@@ -2256,14 +2256,14 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		{
 			if(bReplaceAll)
 			{
-				int results = findText(searchFindTerm, searchReplaceTerm, bCaseSensitive, 0);
+				int results = findText(searchPane,searchFindTerm, searchReplaceTerm, bCaseSensitive, 0);
 				int findOffset = 0;
 				if(results > -1)
 				{
 					while(results > -1)
 					{
 						findOffset = findOffset + searchReplaceTerm.length();
-						results    = findText(searchFindTerm, searchReplaceTerm, bCaseSensitive, findOffset);
+						results    = findText(searchPane,searchFindTerm, searchReplaceTerm, bCaseSensitive, findOffset);
 					}
 				}
 				else
@@ -2273,16 +2273,16 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 			}
 			else
 			{
-				int results = findText(searchFindTerm, searchReplaceTerm, bCaseSensitive, (bStartAtTop ? 0 : searchPane.getCaretPosition()));
+				int results = findText(searchPane,searchFindTerm, searchReplaceTerm, bCaseSensitive, (bStartAtTop ? 0 : searchPane.getCaretPosition()));
 				if(results == -1)
 				{
 					DialogFactory.getInstance().newSimpleInfoDialog(this.getFrame(), "", true, Translatrix.getTranslationString("ErrorNoMatchFound") + ":\n" + searchFindTerm, SimpleInfoDialog.WARNING);
 				}
 			}
-			settings.lastSearchFindTerm    = new String(searchFindTerm);
+			settings.lastSearchFindTerm    = searchFindTerm;
 			if(searchReplaceTerm != null)
 			{
-				settings.lastSearchReplaceTerm = new String(searchReplaceTerm);
+				settings.lastSearchReplaceTerm = searchReplaceTerm;
 			}
 			else
 			{
@@ -2295,17 +2295,8 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 
 	/** Method for finding (and optionally replacing) a string in the text
 	  */
-	private int findText(String findTerm, String replaceTerm, boolean bCaseSenstive, int iOffset)
+	private int findText(JTextComponent jtpFindSource,String findTerm, String replaceTerm, boolean bCaseSenstive, int iOffset)
 	{
-		JTextComponent jtpFindSource;
-		if(isSourceWindowActive() || jtpSource.hasFocus())
-		{
-			jtpFindSource = (JTextComponent)jtpSource;
-		}
-		else
-		{
-			jtpFindSource = (JTextComponent)jtpMain;
-		}
 		int searchPlace = -1;
 		try
 		{

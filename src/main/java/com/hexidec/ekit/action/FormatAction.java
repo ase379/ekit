@@ -59,7 +59,7 @@ public class FormatAction extends StyledEditorKit.StyledTextAction
 		}
 		if(selText == null || textLength < 1)
 		{
-			SimpleInfoDialog sidWarn = DialogFactory.getInstance().newSimpleInfoDialog(parentEkit.getFrame(), "", true, Translatrix.getTranslationString("ErrorNoTextSelected"), SimpleInfoDialog.ERROR);
+			DialogFactory.getInstance().newSimpleInfoDialog(parentEkit.getFrame(), "", true, Translatrix.getTranslationString("ErrorNoTextSelected"), SimpleInfoDialog.ERROR);
 		}
 		else
 		{

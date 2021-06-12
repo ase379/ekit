@@ -1452,7 +1452,9 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 		{
 			try
 			{
-				if(htmlUtilities.checkParentsTag(HTML.Tag.UL) == true | htmlUtilities.checkParentsTag(HTML.Tag.OL) == true)
+
+
+				if ((htmlUtilities.checkParentsTag(HTML.Tag.UL) == true | htmlUtilities.checkParentsTag(HTML.Tag.OL) == true) && (htmlUtilities.getListItemParent() != null))
 				{
 					elem = htmlUtilities.getListItemParent();
 					int so = elem.getStartOffset();

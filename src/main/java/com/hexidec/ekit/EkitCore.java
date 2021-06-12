@@ -8,6 +8,7 @@ import com.hexidec.ekit.images.ImageFactory;
 import com.hexidec.ekit.print.DocumentRenderer;
 import com.hexidec.ekit.textPane.EKitSourceTextPane;
 import com.hexidec.ekit.textPane.EkitTextPane;
+import com.hexidec.ekit.utils.StringUtils;
 import com.hexidec.util.Base64Codec;
 import com.hexidec.util.Load;
 import com.hexidec.util.Translatrix;
@@ -1373,7 +1374,6 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 
 		Element elem;
 		int pos = this.getCaretPosition();
-		int repos = -1;
 		if(ke.getKeyChar() == KeyEvent.VK_BACK_SPACE)
 		{
 			try
@@ -1403,7 +1403,7 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 									char[] temp = jtpMain.getText(so, eo - so).toCharArray();
 									for(char c : temp)
 									{
-										if(!(new Character(c)).isWhitespace(c))
+										if(!Character.isWhitespace(c))
 										{
 											content = true;
 										}
@@ -1457,41 +1457,8 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 					elem = htmlUtilities.getListItemParent();
 					int so = elem.getStartOffset();
 					int eo = elem.getEndOffset();
-					char[] temp = this.getTextPane().getText(so,eo-so).toCharArray();
-					boolean content = false;
-					for(char c : temp)
-					{
-						if(!(new Character(c)).isWhitespace(c))
-						{
-							content = true;
-						}
-					}
-					if(content)
-					{
-						int end = -1;
-						int j = temp.length;
-						do
-						{
-							j--;
-							if(new Character(temp[j]).isLetterOrDigit(temp[j]))
-							{
-								end = j;
-							}
-						} while (end == -1 && j >= 0);
-						j = end;
-						do
-						{
-							j++;
-							if(!new Character(temp[j]).isSpaceChar(temp[j]))
-							{
-								repos = j - end -1;
-							}
-						} while (repos == -1 && j < temp.length);
-						if(repos == -1)
-						{
-							repos = 0;
-						}
-					}
+					String temp = this.getTextPane().getText(so,eo-so);
+					boolean content = StringUtils.doesStringContainNonWhitespaceChars(temp);
 					if(!content)
 					{
 						removeEmptyListElement(elem);
@@ -1500,11 +1467,13 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 					{
 						if(this.getCaretPosition() + 1 == elem.getEndOffset())
 						{
+							// if last char in the item, just insert style and set caret to new item
 							insertListStyle(elem);
-							this.setCaretPosition(pos - repos);
 						}
 						else
 						{
+							// if caret is inside the text, split the text (right part in new item). then
+							// set the caret to the new item.
 							int caret = this.getCaretPosition();
 							String tempString = this.getTextPane().getText(caret, eo - caret);
 							if(tempString != null && tempString.length() > 0)
@@ -1513,7 +1482,7 @@ public class EkitCore extends JPanel implements ActionListener, KeyListener, Foc
 								this.getTextPane().replaceSelection("");
 								htmlUtilities.insertListElement(tempString);
 								Element newLi = htmlUtilities.getListItemParent();
-								this.setCaretPosition(newLi.getEndOffset() - 1);
+								this.setCaretPosition(newLi.getEndOffset()-1);
 							}
 						}
 					}

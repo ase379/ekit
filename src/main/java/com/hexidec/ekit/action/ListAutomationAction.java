@@ -87,17 +87,22 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 				else
 				{
 					boolean isLast = false;
-					int caretPos = parentEkit.getCaretPosition();
-					if(caretPos == parentEkit.getExtendedHtmlDoc().getLength())
+					int caretPosBeforeInsert = parentEkit.getCaretPosition();
+					if(caretPosBeforeInsert == parentEkit.getExtendedHtmlDoc().getLength())
 					{
 						isLast = true;
 					}
-					sbNew.append("<").append(sListType).append("><li></li></").append(sListType).append(">").append((isLast ? "<p style=\"margin-top: 0\">&nbsp;</p>" : ""));
+					String paragraph = "";
+					if (isLast)
+						paragraph = "<p style=\"margin-top: 0\">&nbsp;</p>";
+					sbNew.append("<").append(sListType).append("><li></li></").append(sListType).append(">").append(paragraph);
 					insertHTML(parentEkit.getTextPane(), parentEkit.getExtendedHtmlDoc(), parentEkit.getTextPane().getCaretPosition(), sbNew.toString(), 0, 0, (sListType.equals("ol") ? HTML.Tag.OL : HTML.Tag.UL));
-					if(true)
-					{
-						parentEkit.setCaretPosition(caretPos + 1);
-					}
+					int caretPosAfterInsert = parentEkit.getCaretPosition();
+					if (caretPosBeforeInsert == 0)
+						parentEkit.setCaretPosition(caretPosAfterInsert-1);
+					else
+						parentEkit.setCaretPosition(caretPosAfterInsert-2);
+
 				}
 				parentEkit.refreshOnUpdate();
 			}

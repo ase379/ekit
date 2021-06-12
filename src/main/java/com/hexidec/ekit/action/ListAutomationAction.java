@@ -151,23 +151,29 @@ public class ListAutomationAction extends HTMLEditorKit.InsertHTMLTextAction
 					else
 					{
 						StringBuilder sbItem = new StringBuilder();
+						sbNew.append("<li>");
+
 						for(int ch = 0; ch < selText.length(); ch++)
 						{
 							String elem = (htmlDoc.getCharacterElement(iStart + ch) != null ? htmlDoc.getCharacterElement(iStart + ch).getName().toLowerCase() : "[null]");
 							if(elem.equals("br") && sbItem.length() > 0)
 							{
-								sbNew.append("<li>");
 								sbNew.append(sbItem);
 								sbNew.append("</li>");
-								sbItem.delete(0, sbItem.length());
+								sbNew.append("<li>");
+								sbItem.setLength(0);
 							}
 							else
 							{
 								sbItem.append(selText.charAt(ch));
 							}
 						}
+						if (sbItem.length() > 0) {
+							sbNew.append(sbItem);
+						}
 					}
-					sbNew.append("</").append(sListType).append(">");
+					sbNew.append("</li>");
+					sbNew.append("</").append(sListType).append(">");//
 					htmlDoc.remove(iStart, iEnd - iStart);
 					insertHTML(jepEditor, htmlDoc, iStart, sbNew.toString(), 1, 1, null);
 				}
